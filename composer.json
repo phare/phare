@@ -1,0 +1,45 @@
+{
+    "name": "nicolasbeauvais/warden",
+    "description": "A meta quality engine for PHP",
+    "keywords": [
+      "php",
+      "static analysis",
+      "code analysis",
+      "code coverage",
+      "code style",
+      "standards",
+      "analysis",
+      "coverage",
+      "style",
+      "phploc"
+    ],
+    "homepage": "https://github.com/nicolasbeauvais/warden",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Nicolas Beauvais",
+            "email": "nicolas@bvs.email"
+        }
+    ],
+    "require": {
+        "php": "^7.4"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^9.1"
+    },
+    "autoload": {
+        "psr-4": {
+            "NicolasBeauvais\\Warden\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "NicolasBeauvais\\Warden\\Tests\\": "tests"
+        }
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}
