@@ -20,11 +20,20 @@ class GuidelineCache
         );
     }
 
-    public function load(array $values): ?Guideline
+    public function load(array $values): Guideline
     {
         return $this->adapter->getItem(
             $this->hash($values)
         );
+    }
+
+    public function put(array $values, Guideline $guideline): void
+    {
+        $item = $this->adapter->getItem($this->hash($values));
+
+        $item->set($guideline);
+
+        $this->adapter->save($item);
     }
 
     private function hash(array $values): string
