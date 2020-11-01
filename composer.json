@@ -1,28 +1,37 @@
 {
     "name": "nicolasbeauvais/warden",
     "description": "A meta quality engine for PHP",
+    "type": "library",
     "keywords": [
-      "php",
-      "static analysis",
-      "code analysis",
-      "code coverage",
-      "code style",
-      "standards",
-      "analysis",
-      "coverage",
-      "style",
-      "phploc"
+        "php",
+        "static analysis",
+        "code analysis",
+        "code coverage",
+        "code style",
+        "standards",
+        "analysis",
+        "coverage",
+        "style",
+        "phploc"
     ],
-    "homepage": "https://github.com/nicolasbeauvais/warden",
-    "license": "MIT",
     "authors": [
         {
             "name": "Nicolas Beauvais",
             "email": "nicolas@bvs.email"
         }
     ],
+    "license": "MIT",
+    "homepage": "https://github.com/nicolasbeauvais/warden",
+    "support": {
+        "issues": "https://github.com/nicolasbeauvais/warden/issues"
+    },
     "require": {
-        "php": "^7.4"
+        "php": "^7.4",
+        "ext-json": "*",
+        "nunomaduro/collision": "^5.1",
+        "sebastian/lines-of-code": "^1.0",
+        "symfony/cache": "^5.1",
+        "symfony/console": "^5.1"
     },
     "require-dev": {
         "phpunit/phpunit": "^9.1"
@@ -34,12 +43,18 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "NicolasBeauvais\\Warden\\Tests\\": "tests"
+            "NicolasBeauvais\\Warden\\Tests\\": "tests",
+            "Stub\\App\\": "stub/src/App",
+            "Stub\\Domain\\": "stub/src/Domain",
+            "Stub\\Support\\": "stub/src/Support"
         }
     },
     "config": {
         "sort-packages": true
     },
+    "bin": [
+        "warden"
+    ],
     "minimum-stability": "dev",
     "prefer-stable": true
 }
