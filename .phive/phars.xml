@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phive xmlns="https://phar.io/phive">
+  <phar name="phploc" version="^7.0.1" installed="7.0.1" location="./bin/phploc" copy="true"/>
+  <phar name="phpcs" version="^3.5.8" installed="3.5.8" location="./bin/phpcs" copy="true"/>
+  <phar name="phpcbf" version="^3.5.8" installed="3.5.8" location="./bin/phpcbf" copy="true"/>
+  <phar name="phpcpd" version="^6.0.2" installed="6.0.2" location="./bin/phpcpd" copy="true"/>
+  <phar name="php-doc-check" version="^0.2.2" installed="0.2.2" location="./bin/php-doc-check" copy="true"/>
+  <phar name="dephpend" version="^0.7.0" installed="0.7.0" location="./bin/dephpend" copy="true"/>
+  <phar name="phpstan" version="^0.12.51" installed="0.12.51" location="./bin/phpstan" copy="true"/>
+  <phar name="psalm" version="^4.0.1" installed="4.0.1" location="./bin/psalm" copy="true"/>
+  <phar name="php-cs-fixer" version="^2.16.4" installed="2.16.4" location="./bin/php-cs-fixer" copy="true"/>
+  <phar name="phan" version="^4.0.0-alpha2" installed="4.0.0-alpha2" location="./bin/phan" copy="true"/>
+  <phar name="deptrac" version="^0.8.2" installed="0.8.2" location="./bin/deptrac" copy="true"/>
+  <phar name="phpmd" version="^2.7.0" installed="2.7.0" location="./bin/phpmd" copy="true"/>
+  <phar name="composer-unused" version="^0.7.4" installed="0.7.4" location="./bin/composer-unused" copy="true"/>
+  <phar name="composer-normalize" version="^2.9.0" installed="2.9.0" location="./bin/composer-normalize" copy="true"/>
+</phive>
