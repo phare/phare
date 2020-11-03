@@ -9,13 +9,7 @@ class GuidelineFactory
 {
     public static function make(string $filePath = null): Guideline
     {
-        $guidelineCache = new GuidelineCache();
-
         $values = GuidelineFileLoader::load($filePath);
-
-         if ($guidelineCache->exist($values)) {
-             return $guidelineCache->load($values);
-         }
 
         GuidelineValidator::validate($values);
 
@@ -26,8 +20,6 @@ class GuidelineFactory
         foreach ($values[GuidelinePreset::SCOPES] as $name => $scope) {
             $guideline->addScope($name, ScopeFactory::make($scope));
         }
-
-        $guidelineCache->put($values, $guideline);
 
         return $guideline;
     }
