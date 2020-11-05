@@ -20,8 +20,11 @@ class Guideline
         return $this;
     }
 
-    public function getScope(string $name): ?Scope
+    /**
+     * @return Scope[]
+     */
+    public function getScopes(): array
     {
-        return $this->scopes[$name] ?? null;
+        return $this->scopes;
     }
 }

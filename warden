@@ -5,6 +5,8 @@ declare(strict_types=1);
 
 use NicolasBeauvais\Warden\Kernel;
 
+define('WARDEN_START', microtime(true));
+
 (static function () {
     $autoloadPaths = [
         __DIR__ . '/vendor/autoload.php',

@@ -2,6 +2,7 @@
 
 namespace NicolasBeauvais\Warden\Console\Command;
 
+use NicolasBeauvais\Warden\Analysis\AnalysisFactory;
 use NicolasBeauvais\Warden\Guideline\GuidelineFactory;
 use NicolasBeauvais\Warden\Guideline\GuidelineIssueCollector;
 use NicolasBeauvais\Warden\Report\Report;
@@ -48,8 +49,10 @@ class RunCommand extends Command
             $input->getOption('configuration-file')
         );
 
+        $analysis = AnalysisFactory::make($guideline);
+
         $report->output(
-            GuidelineIssueCollector::collect($guideline),
+            $analysis->getIssueCollection(),
             $input->getOption('output-format')
         );
 

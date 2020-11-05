@@ -15,7 +15,7 @@ class Report
         $this->io = $io;
     }
 
-    public function version ()
+    public function version(): void
     {
         $this->io->newLine();
         $this->io->write('Warden ' . Kernel::VERSION . '.');
@@ -25,5 +25,15 @@ class Report
     public function output(IssueCollection $issueCollection, string $format): void
     {
         $this->io->success('Done.');
+
+        if ($this->io->isVeryVerbose()) {
+            $this->statistics();
+        }
+    }
+
+    private function statistics(): void
+    {
+        $this->io->title('Execution statistics:');
+        $this->io->write('Warden executed in: ' . round(microtime(true) - WARDEN_START, 3) . 's');
     }
 }

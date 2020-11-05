@@ -6,10 +6,11 @@ use NicolasBeauvais\Warden\Preset\Scope as ScopePreset;
 
 class ScopeFactory
 {
-    public static function make(array $values): Scope
+    public static function make(string $name, array $values): Scope
     {
        return new Scope(
-           $values[ScopePreset::PATHS] ?? [],
+           $name,
+           $values[ScopePreset::PATHS] ?? ['*'],
            $values[ScopePreset::EXCLUDES] ?? [],
            $values[ScopePreset::RULES] ?? []
        );

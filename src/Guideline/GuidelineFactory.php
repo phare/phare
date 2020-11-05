@@ -17,8 +17,12 @@ class GuidelineFactory
 
         $guideline = new Guideline();
 
-        foreach ($values[GuidelinePreset::SCOPES] as $name => $scope) {
-            $guideline->addScope($name, ScopeFactory::make($scope));
+        foreach ($values[GuidelinePreset::SCOPES] as $name => $scopeValues) {
+            $scope = ScopeFactory::make($name, $scopeValues);
+
+            if (count($scope->getRules())) {
+                $guideline->addScope($name, $scope);
+            }
         }
 
         return $guideline;

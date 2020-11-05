@@ -4,17 +4,27 @@ namespace NicolasBeauvais\Warden\Scope;
 
 class Scope
 {
+    private string $name;
+
     protected array $paths;
 
     protected array $excludes;
 
     protected array $rules;
 
-    public function __construct(array $paths = [], array $excludes = [], array $rules = [])
+    private array $files;
+
+    public function __construct(string $name, array $paths = ['*'], array $excludes = [], array $rules = [])
     {
+        $this->name = $name;
         $this->paths = $paths;
         $this->excludes = $excludes;
         $this->rules = $rules;
+    }
+
+    public function getName(): string
+    {
+        return $this->name;
     }
 
     public function getPaths(): array
@@ -45,5 +55,12 @@ class Scope
     public function setRules(array $rules): void
     {
         $this->rules = $rules;
+    }
+
+    public function pushFile(string $file): void
+    {
+        if (!in_array($file, $this->files, true)) {
+            $this->files[] = $file;
+        }
     }
 }
