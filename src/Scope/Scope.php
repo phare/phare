@@ -12,8 +12,6 @@ class Scope
 
     protected array $rules;
 
-    private array $files;
-
     public function __construct(string $name, array $paths = ['*'], array $excludes = [], array $rules = [])
     {
         $this->name = $name;
@@ -55,12 +53,5 @@ class Scope
     public function setRules(array $rules): void
     {
         $this->rules = $rules;
-    }
-
-    public function pushFile(string $file): void
-    {
-        if (!in_array($file, $this->files, true)) {
-            $this->files[] = $file;
-        }
     }
 }

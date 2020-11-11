@@ -19,9 +19,7 @@ class AnalysisFactory
                 ->exclude($scope->getExcludes())
                 ->files();
 
-            foreach ($files as $file) {
-                $analysis->pushFile($file->getRealPath(), $scope);
-            }
+            $analysis->addFiles($files, $scope);
         }
 
         $analysis->execute();

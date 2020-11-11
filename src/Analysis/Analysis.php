@@ -5,34 +5,67 @@ namespace NicolasBeauvais\Warden\Analysis;
 use NicolasBeauvais\Warden\Guideline\Guideline;
 use NicolasBeauvais\Warden\Issue\IssueCollection;
 use NicolasBeauvais\Warden\Scope\Scope;
+use Symfony\Component\Finder\Finder;
 
 class Analysis
 {
-    private Guideline $guideline;
+    private array $scopes;
 
-    private array $files;
+    private array $rules;
+
+    private Guideline $guideline;
 
     private IssueCollection $issueCollection;
 
     public function __construct(Guideline $guideline)
     {
         $this->guideline = $guideline;
+        $this->issueCollection = new IssueCollection;
     }
 
-    public function pushFile(string $file, Scope $scope): void
+    public function addFiles(Finder $files, Scope $scope): void
     {
-        $this->files[$file] = array_merge_recursive(
-            [
-                'scopes' => [$scope->getName()],
-                'rules' => $scope->getRules()
-            ],
-            $this->files[$file] ?? []
-        );
+        $this->pushScope($scope);
+
+        foreach ($scope->getRules() as $rule) {
+            $hash = spl_object_hash($rule);
+
+            if (!isset($this->rules[$hash])) {
+                $this->rules[$hash] = [
+                    'instance' => $rule,
+                    'files' => [],
+                ];
+            }
+
+            foreach ($files as $file) {
+                $this->rules[$hash]['files'][] = [
+                    'scope' => $scope->getName(),
+                    'file' => $file->getRealPath()
+                ];
+            }
+
+            $this->incrementScopeFiles($scope->getName(), $files->count());
+        }
     }
 
-    public function getFiles(): array
+    public function pushScope(Scope $scope): void
     {
-        return $this->files;
+        if (!isset($this->scopes[$scope->getName()])) {
+            $this->scopes[$scope->getName()] = [
+                'files' => 0,
+                'rules' => count($scope->getRules()),
+            ];
+        }
+    }
+
+    private function incrementScopeFiles(string $scope, int $value): void
+    {
+        $this->scopes[$scope]['files'] += $value;
+    }
+
+    public function getScopes(): array
+    {
+        return $this->scopes;
     }
 
     public function getIssueCollection(): IssueCollection
@@ -40,10 +73,10 @@ class Analysis
         return $this->issueCollection;
     }
 
-    public function execute()
+    public function execute(): void
     {
-        foreach ($this->getFiles() as $filePath => $file) {
-            var_dump($filePath, $file);die;
+        foreach ($this->rules as $rule) {
+            var_dump($rule['files']);die;
         }
     }
 }
