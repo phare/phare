@@ -29,8 +29,6 @@
         "php": "^7.4",
         "ext-json": "*",
         "nunomaduro/collision": "^5.1",
-        "sebastian/lines-of-code": "^1.0",
-        "symfony/cache": "^5.1",
         "symfony/console": "^5.1",
         "symfony/finder": "^5.1"
     },
