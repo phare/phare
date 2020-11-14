@@ -2,9 +2,11 @@
 
 namespace NicolasBeauvais\Warden\Console\Command;
 
+use NicolasBeauvais\Warden\Analysis\Analysis;
 use NicolasBeauvais\Warden\Analysis\AnalysisFactory;
 use NicolasBeauvais\Warden\Guideline\GuidelineFactory;
 use NicolasBeauvais\Warden\Guideline\GuidelineIssueCollector;
+use NicolasBeauvais\Warden\Guideline\GuidelineProcessor;
 use NicolasBeauvais\Warden\Report\Report;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;

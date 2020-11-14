@@ -2,12 +2,15 @@
 
 namespace NicolasBeauvais\Warden\Rule\CodeSniffer;
 
+use NicolasBeauvais\Warden\File\FileCollection;
 use NicolasBeauvais\Warden\Issue\IssueCollection;
 use NicolasBeauvais\Warden\Preset\CodeSniffer;
 use NicolasBeauvais\Warden\Rule\Rule;
 
 class CodeSnifferSettings extends Rule
 {
+    public string $type = self::TYPE_LINTER;
+
     public string $standard = CodeSniffer::STANDARD_PSR12;
 
     public int $errorSeverity = 5;
@@ -18,8 +21,9 @@ class CodeSnifferSettings extends Rule
 
     public array $excludes = [];
 
-    public function __construct()
+    public function handle(FileCollection $files): IssueCollection
     {
+        return new IssueCollection;
     }
 
     public function standard(string $standard) : self
@@ -45,10 +49,5 @@ class CodeSnifferSettings extends Rule
     public function excludes(array $excludes) : self
     {
         return $this;
-    }
-
-    public function handle(): IssueCollection
-    {
-        return new IssueCollection();
     }
 }

@@ -2,6 +2,9 @@
 
 namespace NicolasBeauvais\Warden\Scope;
 
+use NicolasBeauvais\Warden\File\FileCollection;
+use NicolasBeauvais\Warden\Rule\Rule;
+
 class Scope
 {
     private string $name;
@@ -11,6 +14,8 @@ class Scope
     protected array $excludes;
 
     protected array $rules;
+
+    protected FileCollection $fileCollection;
 
     public function __construct(string $name, array $paths = ['*'], array $excludes = [], array $rules = [])
     {
@@ -45,13 +50,29 @@ class Scope
         $this->excludes = $excludes;
     }
 
-    public function getRules(): array
+    public function getRules(string $type = null): array
     {
-        return $this->rules;
+        if (!$type) {
+            return $this->rules;
+        }
+
+        return array_filter($this->rules, static function (Rule $rule) use ($type) {
+            return $rule->isType($type);
+        });
     }
 
     public function setRules(array $rules): void
     {
         $this->rules = $rules;
+    }
+
+    public function getFileCollection(): FileCollection
+    {
+        return $this->fileCollection;
+    }
+
+    public function setFileCollection(FileCollection $fileCollection): void
+    {
+        $this->fileCollection = $fileCollection;
     }
 }

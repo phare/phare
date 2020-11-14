@@ -2,20 +2,20 @@
 
 namespace NicolasBeauvais\Warden\Rule\Structure;
 
+use NicolasBeauvais\Warden\File\FileCollection;
 use NicolasBeauvais\Warden\Issue\IssueCollection;
 use NicolasBeauvais\Warden\Rule\Rule;
 
 class FileExtension extends Rule
 {
-    private array $extensions;
+    public string $type = self::TYPE_FILTER;
 
-    public function __construct(array $extensions)
+    public function __construct($extension)
     {
-        $this->extensions = $extensions;
     }
 
-    public function handle(): IssueCollection
+    public function handle(FileCollection $files): IssueCollection
     {
-        return new IssueCollection();
+        return new IssueCollection;
     }
 }
