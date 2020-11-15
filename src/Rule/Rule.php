@@ -4,6 +4,7 @@ namespace NicolasBeauvais\Warden\Rule;
 
 use NicolasBeauvais\Warden\File\FileCollection;
 use NicolasBeauvais\Warden\Issue\IssueCollection;
+use NicolasBeauvais\Warden\Scope\Scope;
 
 abstract class Rule
 {
@@ -15,7 +16,7 @@ abstract class Rule
 
     public string $type = self::TYPE_FILTER;
 
-    abstract public function handle(FileCollection $files): IssueCollection;
+    abstract public function handle(Scope $scope): void;
 
     public function isType(string $type): bool
     {

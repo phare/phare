@@ -2,8 +2,9 @@
 
 namespace NicolasBeauvais\Warden\Analysis;
 
-use NicolasBeauvais\Warden\Issue\IssueCollection;
 use NicolasBeauvais\Warden\Guideline\Guideline;
+use NicolasBeauvais\Warden\Issue\IssueCollection;
+use NicolasBeauvais\Warden\Report\Report;
 use NicolasBeauvais\Warden\Rule\Rule;
 use NicolasBeauvais\Warden\Scope\Scope;
 
@@ -11,32 +12,36 @@ class Analysis
 {
     private Guideline $guideline;
 
-    private IssueCollection $issueCollection;
-
     public function __construct(Guideline $guideline)
     {
         $this->guideline = $guideline;
-        $this->issueCollection = new IssueCollection;
     }
 
-    public function execute(): void
+    public function execute(Report $report): void
     {
         foreach ($this->guideline->getScopes() as $scope) {
-            $this->executeScope($scope);
+            $this->executeScope($report, $scope);
         }
     }
 
-    private function executeScope(Scope $scope): void
+    private function executeScope(Report $report, Scope $scope): void
     {
         $filterRules = $scope->getRules(Rule::TYPE_FILTER);
 
-        foreach ($scope->getFileCollection() as $file) {
-            var_dump($file, $filterRules);die;
+        $progress = $report->initialiseProgressBar(count($filterRules));
+
+        foreach ($filterRules as $rule) {
+            $rule->handle($scope);
+
+            $progress->advance();
         }
     }
 
-    public function getIssueCollection(): IssueCollection
+    /**
+     * @return Scope[]
+     */
+    public function getScopes(): array
     {
-        return $this->issueCollection;
+        return $this->guideline->getScopes();
     }
 }

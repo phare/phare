@@ -2,44 +2,20 @@
 
 namespace NicolasBeauvais\Warden\File;
 
-use Symfony\Component\Finder\Finder;
+use Doctrine\Common\Collections\ArrayCollection;
 
-class FileCollection implements \ArrayAccess, \IteratorAggregate
+/**
+ * @method FileCollection|File[] current()
+ */
+class FileCollection extends ArrayCollection
 {
     /**
-     * @var File[] $files
+     * @return File[]
      */
-    private array $files = [];
-
-    public function __construct(Finder $files)
+    public function getUnfilteredFiles(): array
     {
-        foreach ($files as $file) {
-            $this->files[] = new File($file);
-        }
-    }
-
-    public function offsetExists($offset): bool
-    {
-        return array_key_exists($offset, $this->files);
-    }
-
-    public function offsetGet($offset): File
-    {
-        return $this->files[$offset];
-    }
-
-    public function offsetSet($offset, $value): void
-    {
-        $this->files[$offset] = $value;
-    }
-
-    public function offsetUnset($offset): void
-    {
-        unset($this->files[$offset]);
-    }
-
-    public function getIterator()
-    {
-        return new \ArrayIterator($this->files);
+        return array_filter($this->toArray(), static function (File $file) {
+            return !$file->isFiltered();
+        });
     }
 }

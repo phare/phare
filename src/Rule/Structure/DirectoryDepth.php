@@ -2,9 +2,9 @@
 
 namespace NicolasBeauvais\Warden\Rule\Structure;
 
-use NicolasBeauvais\Warden\File\FileCollection;
 use NicolasBeauvais\Warden\Issue\IssueCollection;
 use NicolasBeauvais\Warden\Rule\Rule;
+use NicolasBeauvais\Warden\Scope\Scope;
 
 class DirectoryDepth extends Rule
 {
@@ -14,8 +14,7 @@ class DirectoryDepth extends Rule
     {
     }
 
-    public function handle(FileCollection $files): IssueCollection
+    public function handle(Scope $scope): void
     {
-        return new IssueCollection;
     }
 }

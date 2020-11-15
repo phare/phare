@@ -2,7 +2,10 @@
 
 namespace NicolasBeauvais\Warden\Scope;
 
+use NicolasBeauvais\Warden\File\File;
 use NicolasBeauvais\Warden\File\FileCollection;
+use NicolasBeauvais\Warden\Issue\Issue;
+use NicolasBeauvais\Warden\Issue\IssueCollection;
 use NicolasBeauvais\Warden\Rule\Rule;
 
 class Scope
@@ -23,6 +26,8 @@ class Scope
         $this->paths = $paths;
         $this->excludes = $excludes;
         $this->rules = $rules;
+
+        $this->fileCollection = new FileCollection;
     }
 
     public function getName(): string
@@ -50,6 +55,9 @@ class Scope
         $this->excludes = $excludes;
     }
 
+    /**
+     * @return Rule[]
+     */
     public function getRules(string $type = null): array
     {
         if (!$type) {
@@ -66,6 +74,9 @@ class Scope
         $this->rules = $rules;
     }
 
+    /**
+     * @return FileCollection|File[]
+     */
     public function getFileCollection(): FileCollection
     {
         return $this->fileCollection;

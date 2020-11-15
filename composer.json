@@ -28,6 +28,7 @@
     "require": {
         "php": "^7.4",
         "ext-json": "*",
+        "doctrine/collections": "^1.6",
         "nunomaduro/collision": "^5.1",
         "symfony/console": "^5.1",
         "symfony/finder": "^5.1"

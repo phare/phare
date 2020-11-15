@@ -2,7 +2,6 @@
 
 namespace NicolasBeauvais\Warden\Console\Command;
 
-use NicolasBeauvais\Warden\Analysis\Analysis;
 use NicolasBeauvais\Warden\Analysis\AnalysisFactory;
 use NicolasBeauvais\Warden\Guideline\GuidelineFactory;
 use NicolasBeauvais\Warden\Guideline\GuidelineIssueCollector;
@@ -41,9 +40,7 @@ class RunCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $report = new Report(
-            new SymfonyStyle($input, $output)
-        );
+        $report = new Report($input, $output);
 
         $report->version();
 
@@ -51,10 +48,10 @@ class RunCommand extends Command
             $input->getOption('configuration-file')
         );
 
-        $analysis = AnalysisFactory::make($guideline);
+        $analysis = AnalysisFactory::make($guideline, $report);
 
         $report->output(
-            $analysis->getIssueCollection(),
+            $analysis,
             $input->getOption('output-format')
         );
 
