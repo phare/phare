@@ -1,10 +1,9 @@
 <?php
 
-namespace NicolasBeauvais\Warden\Rule;
+namespace Phare\Rule;
 
-use NicolasBeauvais\Warden\File\FileCollection;
-use NicolasBeauvais\Warden\Issue\IssueCollection;
-use NicolasBeauvais\Warden\Scope\Scope;
+use Phare\File\FileCollection;
+use Phare\Scope\Scope;
 
 abstract class Rule
 {
@@ -14,7 +13,7 @@ abstract class Rule
 
     private FileCollection $files;
 
-    public string $type = self::TYPE_FILTER;
+    protected string $type = self::TYPE_FILTER;
 
     abstract public function handle(Scope $scope): void;
 

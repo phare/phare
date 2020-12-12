@@ -1,6 +1,6 @@
 <?php
 
-namespace NicolasBeauvais\Warden\Exception;
+namespace Phare\Exception;
 
 use Exception;
 

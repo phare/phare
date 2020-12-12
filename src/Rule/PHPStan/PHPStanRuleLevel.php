@@ -1,15 +1,15 @@
 <?php
 
-namespace NicolasBeauvais\Warden\Rule\PHPStan;
+namespace Phare\Rule\PHPStan;
 
-use NicolasBeauvais\Warden\File\FileCollection;
-use NicolasBeauvais\Warden\Issue\IssueCollection;
-use NicolasBeauvais\Warden\Rule\Rule;
-use NicolasBeauvais\Warden\Scope\Scope;
+use Phare\File\FileCollection;
+use Phare\Issue\IssueCollection;
+use Phare\Rule\Rule;
+use Phare\Scope\Scope;
 
 class PHPStanRuleLevel extends Rule
 {
-    public string $type = self::TYPE_LINTER;
+    protected string $type = self::TYPE_LINTER;
 
     public function __construct(int $level)
     {

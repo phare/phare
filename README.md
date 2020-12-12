@@ -1,1 +1,1 @@
-# Warden - A meta quality engine for PHP
+# Phare - The meta quality engine for PHP

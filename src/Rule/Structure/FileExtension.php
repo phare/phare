@@ -1,16 +1,16 @@
 <?php
 
-namespace NicolasBeauvais\Warden\Rule\Structure;
+namespace Phare\Rule\Structure;
 
-use NicolasBeauvais\Warden\File\File;
-use NicolasBeauvais\Warden\Issue\Issue;
-use NicolasBeauvais\Warden\Issue\IssueCollection;
-use NicolasBeauvais\Warden\Rule\Rule;
-use NicolasBeauvais\Warden\Scope\Scope;
+use Phare\File\File;
+use Phare\Issue\Issue;
+use Phare\Issue\IssueCollection;
+use Phare\Rule\Rule;
+use Phare\Scope\Scope;
 
 class FileExtension extends Rule
 {
-    public string $type = self::TYPE_FILTER;
+    protected string $type = self::TYPE_FILTER;
 
     private array $extensions;
 

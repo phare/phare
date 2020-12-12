@@ -1,16 +1,16 @@
 <?php
 
-namespace NicolasBeauvais\Warden\Rule\CodeSniffer;
+namespace Phare\Rule\CodeSniffer;
 
-use NicolasBeauvais\Warden\File\FileCollection;
-use NicolasBeauvais\Warden\Issue\IssueCollection;
-use NicolasBeauvais\Warden\Preset\CodeSniffer;
-use NicolasBeauvais\Warden\Rule\Rule;
-use NicolasBeauvais\Warden\Scope\Scope;
+use Phare\File\FileCollection;
+use Phare\Issue\IssueCollection;
+use Phare\Preset\CodeSniffer;
+use Phare\Rule\Rule;
+use Phare\Scope\Scope;
 
 class CodeSnifferSettings extends Rule
 {
-    public string $type = self::TYPE_LINTER;
+    protected string $type = self::TYPE_LINTER;
 
     public string $standard = CodeSniffer::STANDARD_PSR12;
 

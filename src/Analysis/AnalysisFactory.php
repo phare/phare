@@ -1,9 +1,9 @@
 <?php
 
-namespace NicolasBeauvais\Warden\Analysis;
+namespace Phare\Analysis;
 
-use NicolasBeauvais\Warden\Guideline\Guideline;
-use NicolasBeauvais\Warden\Report\Report;
+use Phare\Guideline\Guideline;
+use Phare\Report\Report;
 
 class AnalysisFactory
 {

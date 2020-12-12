@@ -1,9 +1,9 @@
 <?php
 
-namespace NicolasBeauvais\Warden\Issue;
+namespace Phare\Issue;
 
-use NicolasBeauvais\Warden\Rule\Rule;
-use NicolasBeauvais\Warden\Scope\Scope;
+use Phare\Rule\Rule;
+use Phare\Scope\Scope;
 
 class Issue
 {

@@ -1,18 +1,14 @@
 {
-    "name": "nicolasbeauvais/warden",
-    "description": "A meta quality engine for PHP",
+    "name": "phare/phare",
+    "description": "Enlightened code architecture supervisor",
     "type": "library",
     "keywords": [
         "php",
-        "static analysis",
-        "code analysis",
-        "code coverage",
-        "code style",
+        "architecture",
         "standards",
         "analysis",
-        "coverage",
-        "style",
-        "phploc"
+        "rules",
+        "style"
     ],
     "authors": [
         {
@@ -21,9 +17,9 @@
         }
     ],
     "license": "MIT",
-    "homepage": "https://github.com/nicolasbeauvais/warden",
+    "homepage": "https://github.com/nicolasbeauvais/phare",
     "support": {
-        "issues": "https://github.com/nicolasbeauvais/warden/issues"
+        "issues": "https://github.com/nicolasbeauvais/phare/issues"
     },
     "require": {
         "php": "^7.4",
@@ -38,12 +34,12 @@
     },
     "autoload": {
         "psr-4": {
-            "NicolasBeauvais\\Warden\\": "src"
+            "Phare\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "NicolasBeauvais\\Warden\\Tests\\": "tests",
+            "Phare\\Phare\\Tests\\": "tests",
             "Stub\\App\\": "stub/src/App",
             "Stub\\Domain\\": "stub/src/Domain",
             "Stub\\Support\\": "stub/src/Support"
@@ -53,7 +49,7 @@
         "sort-packages": true
     },
     "bin": [
-        "warden"
+        "phare"
     ],
     "minimum-stability": "dev",
     "prefer-stable": true

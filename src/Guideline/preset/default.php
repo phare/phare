@@ -1,9 +1,9 @@
 <?php
 
-use NicolasBeauvais\Warden\Preset\CodeSniffer;
-use NicolasBeauvais\Warden\Preset\Scope;
-use NicolasBeauvais\Warden\Rule\CodeSniffer\CodeSnifferSettings;
-use NicolasBeauvais\Warden\Rule\Structure\FileExtension;
+use Phare\Preset\CodeSniffer;
+use Phare\Preset\Scope;
+use Phare\Rule\CodeSniffer\CodeSnifferSettings;
+use Phare\Rule\Structure\FileExtension;
 
 return [
     'scopes' => [

@@ -1,12 +1,12 @@
 <?php
 
-namespace NicolasBeauvais\Warden\Console\Command;
+namespace Phare\Console\Command;
 
-use NicolasBeauvais\Warden\Analysis\AnalysisFactory;
-use NicolasBeauvais\Warden\Guideline\GuidelineFactory;
-use NicolasBeauvais\Warden\Guideline\GuidelineIssueCollector;
-use NicolasBeauvais\Warden\Guideline\GuidelineProcessor;
-use NicolasBeauvais\Warden\Report\Report;
+use Phare\Analysis\AnalysisFactory;
+use Phare\Guideline\GuidelineFactory;
+use Phare\Guideline\GuidelineIssueCollector;
+use Phare\Guideline\GuidelineProcessor;
+use Phare\Report\Report;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
@@ -20,20 +20,20 @@ class RunCommand extends Command
     protected function configure(): void
     {
         $this
-            ->setDescription('Run Warden')
-            ->setHelp('This command trigger all configured Warden checks.')
+            ->setDescription('Run Phare')
+            ->setHelp('This command trigger all configured Phare checks.')
             ->addOption(
                 'configuration-file',
                 'c',
                 InputOption::VALUE_REQUIRED,
-                'Path to the Warden configuration file.',
+                'Path to the Phare configuration file.',
                 null
             )
             ->addOption(
                 'output-format',
                 'o',
                 InputOption::VALUE_REQUIRED,
-                'Path to the Warden configuration file.',
+                'Path to the Phare configuration file.',
                 'text'
             );
     }

@@ -1,16 +1,16 @@
 <?php
 
-namespace NicolasBeauvais\Warden\Console;
+namespace Phare\Console;
 
-use NicolasBeauvais\Warden\Console\Command\RunCommand;
-use NicolasBeauvais\Warden\Kernel;
+use Phare\Console\Command\RunCommand;
+use Phare\Kernel;
 use Symfony\Component\Console\Application as BaseApplication;
 
 class Application extends BaseApplication
 {
     public function __construct()
     {
-        parent::__construct('Warden', Kernel::VERSION);
+        parent::__construct('Phare', Kernel::VERSION);
 
         $run = new RunCommand;
 

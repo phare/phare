@@ -1,6 +1,6 @@
 <?php
 
-namespace NicolasBeauvais\Warden\Issue;
+namespace Phare\Issue;
 
 use Doctrine\Common\Collections\ArrayCollection;
 

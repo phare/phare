@@ -1,10 +1,10 @@
 <?php
 
-namespace NicolasBeauvais\Warden\Guideline;
+namespace Phare\Guideline;
 
-use NicolasBeauvais\Warden\Exception\GuidelineConfigurationException;
-use NicolasBeauvais\Warden\Preset\Guideline as GuidelinePreset;
-use NicolasBeauvais\Warden\Scope\ScopeValidator;
+use Phare\Exception\GuidelineConfigurationException;
+use Phare\Preset\Guideline as GuidelinePreset;
+use Phare\Scope\ScopeValidator;
 
 class GuidelineValidator
 {

@@ -2,4 +2,5 @@
 /vendor
 /stub
 composer.lock
-warden.php
+phare.php
+.phpunit.cache

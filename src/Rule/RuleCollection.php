@@ -1,8 +1,8 @@
 <?php
 
-namespace NicolasBeauvais\Warden\Rule;
+namespace Phare\Rule;
 
-use NicolasBeauvais\Warden\Scope\Scope;
+use Phare\Scope\Scope;
 use Symfony\Component\Finder\Finder;
 
 class RuleCollection

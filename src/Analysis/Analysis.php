@@ -1,12 +1,12 @@
 <?php
 
-namespace NicolasBeauvais\Warden\Analysis;
+namespace Phare\Analysis;
 
-use NicolasBeauvais\Warden\Guideline\Guideline;
-use NicolasBeauvais\Warden\Issue\IssueCollection;
-use NicolasBeauvais\Warden\Report\Report;
-use NicolasBeauvais\Warden\Rule\Rule;
-use NicolasBeauvais\Warden\Scope\Scope;
+use Phare\Guideline\Guideline;
+use Phare\Issue\IssueCollection;
+use Phare\Report\Report;
+use Phare\Rule\Rule;
+use Phare\Scope\Scope;
 
 class Analysis
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace NicolasBeauvais\Warden\File;
+namespace Phare\File;
 
 use Doctrine\Common\Collections\ArrayCollection;
 

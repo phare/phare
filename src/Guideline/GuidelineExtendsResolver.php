@@ -1,9 +1,9 @@
 <?php
 
-namespace NicolasBeauvais\Warden\Guideline;
+namespace Phare\Guideline;
 
-use NicolasBeauvais\Warden\Preset\Guideline as GuidelinePreset;
-use NicolasBeauvais\Warden\Preset\Scope as ScopePreset;
+use Phare\Preset\Guideline as GuidelinePreset;
+use Phare\Preset\Scope as ScopePreset;
 
 class GuidelineExtendsResolver
 {

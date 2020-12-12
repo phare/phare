@@ -1,8 +1,8 @@
 <?php
 
-namespace NicolasBeauvais\Warden\Guideline;
+namespace Phare\Guideline;
 
-use NicolasBeauvais\Warden\Scope\Scope;
+use Phare\Scope\Scope;
 
 class Guideline
 {

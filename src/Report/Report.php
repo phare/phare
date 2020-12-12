@@ -1,10 +1,10 @@
 <?php
 
-namespace NicolasBeauvais\Warden\Report;
+namespace Phare\Report;
 
-use NicolasBeauvais\Warden\Analysis\Analysis;
-use NicolasBeauvais\Warden\Issue\Issue;
-use NicolasBeauvais\Warden\Kernel;
+use Phare\Analysis\Analysis;
+use Phare\Issue\Issue;
+use Phare\Kernel;
 use Symfony\Component\Console\Helper\ProgressBar;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -29,7 +29,7 @@ class Report
     public function version(): void
     {
         $this->io->newLine();
-        $this->io->write('Warden ' . Kernel::VERSION . '.');
+        $this->io->write('Phare ' . Kernel::VERSION . '.');
         $this->io->newLine();
     }
 
@@ -75,6 +75,6 @@ class Report
     private function statistics(): void
     {
         $this->io->title('Execution statistics:');
-        $this->io->write('Warden executed in: ' . round(microtime(true) - WARDEN_START, 3) . 's');
+        $this->io->write('Phare executed in: ' . round(microtime(true) - WARDEN_START, 3) . 's');
     }
 }

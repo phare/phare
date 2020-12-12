@@ -1,8 +1,8 @@
 <?php
 
-namespace NicolasBeauvais\Warden\Preset;
+namespace Phare\Preset;
 
-use NicolasBeauvais\Warden\Kernel;
+use Phare\Kernel;
 
 class Guideline
 {

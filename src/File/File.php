@@ -1,9 +1,9 @@
 <?php
 
-namespace NicolasBeauvais\Warden\File;
+namespace Phare\File;
 
-use NicolasBeauvais\Warden\Issue\Issue;
-use NicolasBeauvais\Warden\Issue\IssueCollection;
+use Phare\Issue\Issue;
+use Phare\Issue\IssueCollection;
 use Symfony\Component\Finder\SplFileInfo;
 
 class File

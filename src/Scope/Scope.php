@@ -1,12 +1,12 @@
 <?php
 
-namespace NicolasBeauvais\Warden\Scope;
+namespace Phare\Scope;
 
-use NicolasBeauvais\Warden\File\File;
-use NicolasBeauvais\Warden\File\FileCollection;
-use NicolasBeauvais\Warden\Issue\Issue;
-use NicolasBeauvais\Warden\Issue\IssueCollection;
-use NicolasBeauvais\Warden\Rule\Rule;
+use Phare\File\File;
+use Phare\File\FileCollection;
+use Phare\Issue\Issue;
+use Phare\Issue\IssueCollection;
+use Phare\Rule\Rule;
 
 class Scope
 {

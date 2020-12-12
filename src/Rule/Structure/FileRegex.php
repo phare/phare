@@ -1,14 +1,14 @@
 <?php
 
-namespace NicolasBeauvais\Warden\Rule\Structure;
+namespace Phare\Rule\Structure;
 
-use NicolasBeauvais\Warden\Issue\IssueCollection;
-use NicolasBeauvais\Warden\Rule\Rule;
-use NicolasBeauvais\Warden\Scope\Scope;
+use Phare\Issue\IssueCollection;
+use Phare\Rule\Rule;
+use Phare\Scope\Scope;
 
 class FileRegex extends Rule
 {
-    public string $type = self::TYPE_FILTER;
+    protected string $type = self::TYPE_FILTER;
 
     public function __construct(string $regex)
     {

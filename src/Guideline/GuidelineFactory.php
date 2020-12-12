@@ -1,9 +1,9 @@
 <?php
 
-namespace NicolasBeauvais\Warden\Guideline;
+namespace Phare\Guideline;
 
-use NicolasBeauvais\Warden\Preset\Guideline as GuidelinePreset;
-use NicolasBeauvais\Warden\Scope\ScopeFactory;
+use Phare\Preset\Guideline as GuidelinePreset;
+use Phare\Scope\ScopeFactory;
 
 class GuidelineFactory
 {

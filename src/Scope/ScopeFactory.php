@@ -1,10 +1,10 @@
 <?php
 
-namespace NicolasBeauvais\Warden\Scope;
+namespace Phare\Scope;
 
-use NicolasBeauvais\Warden\File\File;
-use NicolasBeauvais\Warden\File\FileCollection;
-use NicolasBeauvais\Warden\Preset\Scope as ScopePreset;
+use Phare\File\File;
+use Phare\File\FileCollection;
+use Phare\Preset\Scope as ScopePreset;
 use SplFileInfo;
 use Symfony\Component\Finder\Finder;
 

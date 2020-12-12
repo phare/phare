@@ -1,8 +1,8 @@
 <?php
 
-namespace NicolasBeauvais\Warden;
+namespace Phare;
 
-use NicolasBeauvais\Warden\Console\Application;
+use Phare\Console\Application;
 
 class Kernel
 {

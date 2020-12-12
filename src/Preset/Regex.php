@@ -1,6 +1,6 @@
 <?php
 
-namespace NicolasBeauvais\Warden\Preset;
+namespace Phare\Preset;
 
 class Regex
 {
