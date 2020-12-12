@@ -2,8 +2,8 @@
 
 namespace Phare\Tests\Rules\Structure;
 
-use Phare\Rule\Rule;
-use Phare\Rule\Structure\FileExtension;
+use Phare\Rules\Rule;
+use Phare\Rules\FileExtension;
 use Phare\Tests\Traits\CreateScopes;
 use PHPUnit\Framework\TestCase;
 

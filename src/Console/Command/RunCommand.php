@@ -4,14 +4,11 @@ namespace Phare\Console\Command;
 
 use Phare\Analysis\AnalysisFactory;
 use Phare\Guideline\GuidelineFactory;
-use Phare\Guideline\GuidelineIssueCollector;
-use Phare\Guideline\GuidelineProcessor;
 use Phare\Report\Report;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\Console\Style\SymfonyStyle;
 
 class RunCommand extends Command
 {
@@ -48,12 +45,17 @@ class RunCommand extends Command
             $input->getOption('configuration-file')
         );
 
-        $analysis = AnalysisFactory::make($guideline, $report);
+        foreach ($guideline->getScopes() as $scope) {
+            $progress = $report->initialiseProgressBar($scope->countRules());
 
-        $report->output(
-            $analysis,
-            $input->getOption('output-format')
-        );
+            foreach ($progress->iterate($scope->getRules()) as $rule) {
+                $rule->handle($scope);
+            }
+
+            $report->addScope($scope);
+        }
+
+        $report->output($input->getOption('output-format'));
 
         return Command::SUCCESS;
     }

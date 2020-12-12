@@ -1,9 +1,8 @@
 <?php
 
-use Phare\Preset\CodeSniffer;
 use Phare\Preset\Scope;
-use Phare\Rule\CodeSniffer\CodeSnifferSettings;
-use Phare\Rule\Structure\FileExtension;
+use Phare\Rules\CodeSniffer\CodeSnifferSettings;
+use Phare\Rules\FileExtension;
 
 return [
     'scopes' => [
@@ -14,15 +13,6 @@ return [
                 new FileExtension(['php', 'js']),
                 // new DirectoryRegex(Regex::CAMEL_CASE),
                 // new DirectoryDepth(1, 10),
-
-                // PHP CodeSniffer
-                (new CodeSnifferSettings())
-                    ->standard(CodeSniffer::STANDARD_PSR12)
-                    ->extensions(['php'])
-                    ->excludes([
-                        'Generic.PHP.LowerCaseConstant',
-                        'PEAR.WhiteSpace.ScopeIndent',
-                    ]),
 
                 // PHPStan
                 // new PHPStanRuleLevel(8),

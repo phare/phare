@@ -2,35 +2,35 @@
 
 namespace Phare\Issue;
 
-use Phare\Rule\Rule;
-use Phare\Scope\Scope;
+use Phare\File\File;
+use Phare\Rules\Rule;
 
 class Issue
 {
-    private Rule $rule;
+    private File $file;
 
-    private Scope $scope;
+    private Rule $rule;
 
     private string $message;
 
     public function __construct(
+        File $file,
         Rule $rule,
-        Scope $scope,
         string $message
     ) {
+        $this->file = $file;
         $this->rule = $rule;
-        $this->scope = $scope;
         $this->message = $message;
+    }
+
+    public function getFile(): File
+    {
+        return $this->file;
     }
 
     public function getRule(): Rule
     {
         return $this->rule;
-    }
-
-    public function getScope(): Scope
-    {
-        return $this->scope;
     }
 
     public function getMessage(): string

@@ -2,12 +2,14 @@
 
 namespace Phare\Scope;
 
+use JetBrains\PhpStorm\Immutable;
 use Phare\File\File;
 use Phare\File\FileCollection;
 use Phare\Preset\Scope as ScopePreset;
 use SplFileInfo;
 use Symfony\Component\Finder\Finder;
 
+#[Immutable]
 class ScopeFactory
 {
     public static function make(string $name, array $values): Scope

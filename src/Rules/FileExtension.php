@@ -1,17 +1,13 @@
 <?php
 
-namespace Phare\Rule\Structure;
+namespace Phare\Rules;
 
 use Phare\File\File;
 use Phare\Issue\Issue;
-use Phare\Issue\IssueCollection;
-use Phare\Rule\Rule;
 use Phare\Scope\Scope;
 
-class FileExtension extends Rule
+class FileExtension extends FilterRule
 {
-    protected string $type = self::TYPE_FILTER;
-
     private array $extensions;
 
     public function __construct(array $extensions)
@@ -36,8 +32,8 @@ class FileExtension extends Rule
                 continue;
             }
 
-            $file->addIssue(
-                new Issue($this, $scope, $this->message())
+            $scope->addIssue(
+                new Issue($file, $this, $this->message())
             );
 
             $file->setFiltered();

@@ -2,12 +2,14 @@
 
 namespace Phare\Guideline;
 
+use JetBrains\PhpStorm\Immutable;
+use JetBrains\PhpStorm\Pure;
 use Phare\Preset\Guideline as GuidelinePreset;
 use Phare\Preset\Scope as ScopePreset;
 
+#[Immutable]
 class GuidelineExtendsResolver
 {
-
     public static function resolve(array $values, $extended = []): array
     {
         if (isset($values[GuidelinePreset::EXTENDS]) && $values[GuidelinePreset::EXTENDS] !== null) {
@@ -24,6 +26,7 @@ class GuidelineExtendsResolver
     }
 
 
+    #[Pure]
     private static function mergeScopes(array $scope, array $extendedScope): array
     {
         if (isset($scope[ScopePreset::PATHS])) {
@@ -47,6 +50,7 @@ class GuidelineExtendsResolver
         return $extendedScope;
     }
 
+    #[Pure]
     private static function mergeRules(array $rules, array $extendedRules): array
     {
         $existingRules = [];

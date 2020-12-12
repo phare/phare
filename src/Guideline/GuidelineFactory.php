@@ -2,10 +2,12 @@
 
 namespace Phare\Guideline;
 
+use JetBrains\PhpStorm\Immutable;
 use Phare\Preset\Guideline as GuidelinePreset;
 use Phare\Scope\ScopeFactory;
 
-class GuidelineFactory
+#[Immutable]
+abstract class GuidelineFactory
 {
     public static function make(string $filePath = null): Guideline
     {

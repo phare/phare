@@ -12,12 +12,9 @@ class File
 
     private bool $filtered = false;
 
-    private IssueCollection $issueCollection;
-
     public function __construct(SplFileInfo $file)
     {
         $this->file = $file;
-        $this->issueCollection = new IssueCollection;
     }
 
     public function setFiltered(): void
@@ -38,20 +35,5 @@ class File
     public function getExtension(): string
     {
         return $this->file->getExtension();
-    }
-
-    public function addIssue(Issue $issue): void
-    {
-        $this->issueCollection->add($issue);
-    }
-
-    public function hasIssues(): bool
-    {
-        return !$this->issueCollection->isEmpty();
-    }
-
-    public function getIssueCollection(): IssueCollection
-    {
-        return $this->issueCollection;
     }
 }

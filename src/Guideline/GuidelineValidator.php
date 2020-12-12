@@ -2,10 +2,12 @@
 
 namespace Phare\Guideline;
 
+use JetBrains\PhpStorm\Immutable;
 use Phare\Exception\GuidelineConfigurationException;
 use Phare\Preset\Guideline as GuidelinePreset;
 use Phare\Scope\ScopeValidator;
 
+#[Immutable]
 class GuidelineValidator
 {
     private static array $authorizedKeys = [

@@ -6,7 +6,7 @@ use Phare\File\File;
 use Phare\File\FileCollection;
 use Phare\Issue\Issue;
 use Phare\Issue\IssueCollection;
-use Phare\Rule\Rule;
+use Phare\Rules\Rule;
 
 class Scope
 {
@@ -20,6 +20,8 @@ class Scope
 
     protected FileCollection $fileCollection;
 
+    protected IssueCollection $issueCollection;
+
     public function __construct(string $name, array $paths = ['*'], array $excludes = [], array $rules = [])
     {
         $this->name = $name;
@@ -28,6 +30,7 @@ class Scope
         $this->rules = $rules;
 
         $this->fileCollection = new FileCollection;
+        $this->issueCollection = new IssueCollection;
     }
 
     public function getName(): string
@@ -69,6 +72,11 @@ class Scope
         });
     }
 
+    public function countRules(): int
+    {
+        return count($this->getRules());
+    }
+
     public function setRules(array $rules): void
     {
         $this->rules = $rules;
@@ -85,5 +93,20 @@ class Scope
     public function setFileCollection(FileCollection $fileCollection): void
     {
         $this->fileCollection = $fileCollection;
+    }
+
+    public function getIssueCollection(): IssueCollection
+    {
+        return $this->issueCollection;
+    }
+
+    public function hasIssues(): bool
+    {
+        return $this->issueCollection->count() > 0;
+    }
+
+    public function addIssue(Issue $issue): void
+    {
+        $this->issueCollection->add($issue);
     }
 }

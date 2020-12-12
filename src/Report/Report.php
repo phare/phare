@@ -4,7 +4,9 @@ namespace Phare\Report;
 
 use Phare\Analysis\Analysis;
 use Phare\Issue\Issue;
+use Phare\Issue\IssueCollection;
 use Phare\Kernel;
+use Phare\Scope\Scope;
 use Symfony\Component\Console\Helper\ProgressBar;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -17,6 +19,11 @@ class Report
     private OutputInterface $output;
 
     private SymfonyStyle $io;
+
+    /**
+     * @var Scope[]
+     */
+    private array $scopes;
 
     public function __construct(InputInterface $input, OutputInterface $output)
     {
@@ -44,37 +51,55 @@ class Report
         return $progress;
     }
 
-    public function output(Analysis $analysis, string $format): void
+    public function addScope(Scope $scope): void
     {
-        foreach ($analysis->getScopes() as $scope) {
-            $this->io->title('Scope: ' . $scope->getName());
+        $this->scopes[] = $scope;
+    }
 
-            foreach ($scope->getFileCollection() as $file) {
-                if (!$file->hasIssues()) {
-                    continue;
-                }
-
-                $this->io->table(
-                    ['[' . $file->getIssueCollection()->count() . '] ' . $file->getRealPath()],
-                    $file->getIssueCollection()->map(function (Issue $issue) {
-                        return [$issue->getMessage()];
-                    })->toArray()
-                );
-            }
-
-            $this->io->text($scope->getFileCollection()->count() . ' files analyzed.');
+    public function output(string $format): void
+    {
+        foreach ($this->scopes as $scope) {
+            $this->outputScope($scope);
         }
-
-        //$this->io->success('Done.');
 
         if ($this->io->isVeryVerbose()) {
             $this->statistics();
         }
     }
 
+    private function outputScope(Scope $scope): void
+    {
+        $this->io->title('Scope: ' . $scope->getName());
+
+        $issueCollection = $scope->getIssueCollection();
+
+        if ($issueCollection->isEmpty()) {
+            $this->io->success('No issues found in scope.');
+        } else {
+            $this->reportScopeIssues($issueCollection);
+        }
+
+        $this->io->writeln($scope->getFileCollection()->count() . ' files analyzed.');
+    }
+
+    /**
+     * @param IssueCollection $issueCollection
+     */
+    private function reportScopeIssues(IssueCollection $issueCollection): void
+    {
+        $this->io->warning($issueCollection->count() . ' issues found in scope.');
+
+        foreach ($issueCollection->groupByFile() as $file => $fileIssues) {
+            $this->io->table(
+                ['[' . count($fileIssues) . '] ' . $file],
+                array_map(static fn(Issue $issue) => [$issue->getMessage()], $fileIssues)
+            );
+        }
+    }
+
     private function statistics(): void
     {
         $this->io->title('Execution statistics:');
-        $this->io->write('Phare executed in: ' . round(microtime(true) - WARDEN_START, 3) . 's');
+        $this->io->writeln('Phare executed in: ' . round(microtime(true) - WARDEN_START, 3) . 's');
     }
 }

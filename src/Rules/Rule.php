@@ -1,6 +1,6 @@
 <?php
 
-namespace Phare\Rule;
+namespace Phare\Rules;
 
 use Phare\File\FileCollection;
 use Phare\Scope\Scope;

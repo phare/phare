@@ -2,8 +2,10 @@
 
 namespace Phare\Guideline;
 
+use JetBrains\PhpStorm\Immutable;
 use Phare\Kernel;
 
+#[Immutable]
 class GuidelineFileLoader
 {
     public static function load(string $filePath = null): array
