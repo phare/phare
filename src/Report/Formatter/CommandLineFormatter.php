@@ -8,23 +8,32 @@ use Phare\Assertion\Assertion;
 class CommandLineFormatter extends Formatter
 {
     #[Pure]
-    public function output(array $files): string
+    public function output(array $assertions): string
     {
-        $output = '';
+        $output = [];
 
-        /** @var Assertion[] $assertions */
-        foreach ($files as $file => $assertions) {
-            $output .= '<fg=yellow>[' . count($assertions) . '] ' . $file . '</>' . PHP_EOL;
-            $output .= '===================' . PHP_EOL;
+        foreach ($this->groupAssertionsByFile($assertions) as $file => $fileAssertions) {
+            $this->outputFileName($output, $file, $fileAssertions);
 
-            foreach ($assertions as $assertion) {
-                $output .= $assertion->getScope() . '::' . $assertion->getRule()->class() . ' > ';
-                $output .= $assertion->getRule()->errorMessage();
+            foreach ($fileAssertions as $assertion) {
+                $this->outputAssertion($output, $assertion);
             }
 
-            $output .= PHP_EOL . PHP_EOL;
+            $output[] = '';
         }
 
-        return $output . PHP_EOL;
+        return implode(PHP_EOL, $output) . PHP_EOL;
+    }
+
+    private function outputFileName(array &$output, string $file, array $assertions): void
+    {
+        $output[] = '<fg=yellow>[' . count($assertions) . '] ' . $file . '</>';
+        $output[] = '===================';
+    }
+
+    private function outputAssertion(array &$output, Assertion $assertion): void
+    {
+        $message = $assertion->failed() ? $assertion->getRule()->errorMessage() : '<fg=yellow>Fixed</>';
+        $output[] = $assertion->getScope() . '::' . $assertion->getRule()->class() . ' > ' . $message;
     }
 }

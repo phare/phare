@@ -18,24 +18,15 @@ class FileExtension extends Rule
         return 'Extension should be one of: ' . implode(', ', $this->extensions);
     }
 
-    private function fileHasCompliantExtension(File $file): bool
+    public function assert(File $file): bool
     {
         return in_array($file->getExtension(), $this->extensions, true);
     }
 
-    public function assert(File $file): bool
-    {
-        return $this->fileHasCompliantExtension($file);
-    }
-
     public function fixable(): bool
     {
-        return true;
-        // TODO: Implement fixable() method.
+        return false;
     }
 
-    public function fix(): void
-    {
-        // TODO: Implement fix() method.
-    }
+    public function fix(File $file): void {}
 }

@@ -35,7 +35,7 @@ class Assertion
         $this->status = self::STATUS_ERROR;
 
         if ($shouldFix && $this->rule->fixable()) {
-            $this->rule->fix();
+            $this->rule->fix($this->file);
             $this->status = self::STATUS_FIXED;
         }
 
@@ -50,6 +50,11 @@ class Assertion
     public function successful(): bool
     {
         return $this->status === self::STATUS_SUCCESS;
+    }
+
+    public function failed(): bool
+    {
+        return $this->status === self::STATUS_ERROR;
     }
 
     public function getFile(): File

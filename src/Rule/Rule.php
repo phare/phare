@@ -15,7 +15,7 @@ abstract class Rule
 
     abstract public function fixable(): bool;
 
-    abstract public function fix(): void;
+    abstract public function fix(File $file): void;
 
     public function class(): string
     {

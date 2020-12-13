@@ -7,6 +7,7 @@ use Phare\Assertion\Assertion;
 use Phare\Kernel;
 use Phare\Report\Formatter\Formatter;
 use Phare\Report\Formatter\CommandLineFormatter;
+use SplObjectStorage;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
 class Report
@@ -22,7 +23,10 @@ class Report
         Assertion::STATUS_ERROR => 0,
     ];
 
-    private array $files = [];
+    /**
+     * @var Assertion[]
+     */
+    private array $assertions;
 
     private SymfonyStyle $io;
 
@@ -48,7 +52,7 @@ class Report
         $this->statistics['total'] += 1;
         $this->statistics[$assertion->getStatus()] += 1;
 
-        $this->addAssertionToFiles($assertion);
+        $this->addAssertion($assertion);
 
         if ($this->io->isQuiet()) {
             return;
@@ -73,7 +77,7 @@ class Report
     #[Pure]
     public function successful(): bool
     {
-        return count($this->files) === 0;
+        return count($this->assertions) === 0;
     }
 
     private function outputVersion(): void
@@ -99,10 +103,10 @@ class Report
     private function outputReport(string $reportFile = null): void
     {
          if ($reportFile) {
-             file_put_contents($reportFile, $this->formatter->output($this->files));
+             file_put_contents($reportFile, $this->formatter->output($this->assertions));
          } elseif (!$this->io->isQuiet() && !$this->successful()) {
              $this->io->newLine();
-             $this->io->write($this->formatter->output($this->files));
+             $this->io->write($this->formatter->output($this->assertions));
          }
     }
 
@@ -127,18 +131,12 @@ class Report
         $this->io->writeln("Time: {$time}s, Memory: {$memory}MB");
     }
 
-    private function addAssertionToFiles(Assertion $assertion): void
+    private function addAssertion(Assertion $assertion): void
     {
         if ($assertion->successful()) {
             return;
         }
 
-        $path = str_replace(Kernel::getProjectRoot() . '/', '', $assertion->getFile()->getRealPath());
-
-        if (!isset($this->files[$path])) {
-            $this->files[$path] = [];
-        }
-
-        $this->files[$path][] = $assertion;
+        $this->assertions[] = $assertion;
     }
 }

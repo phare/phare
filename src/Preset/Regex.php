@@ -4,7 +4,9 @@ namespace Phare\Preset;
 
 class Regex
 {
-    public const CAMEL_CASE = '/[A-Z][a-z]*/';
+    public const PASCAL_CASE = '/^[A-Z][a-z]+(?:[A-Z][a-z]+)*$/';
 
-    public const SNAKE_CASE = '/[a-z0-9_]*/';
+    public const CAMEL_CASE = '/^[a-z]+(?:[A-Z][a-z]+)*$/';
+
+    public const SNAKE_CASE = '/[a-z_]*/';
 }
