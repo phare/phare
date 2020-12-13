@@ -23,6 +23,10 @@ abstract class GuidelineFactory
         foreach ($values[GuidelinePreset::SCOPES] as $name => $scopeValues) {
             $scope = ScopeFactory::make($name, $scopeValues);
 
+            if (empty($scope->getPaths())) {
+                continue;
+            }
+
             foreach (AssertionFactory::make($scope) as $assertion) {
                 $guideline->addAssertion($assertion);
             }

@@ -3,6 +3,7 @@
 namespace Phare\Rule;
 
 use Phare\File\File;
+use ReflectionClass;
 
 abstract class Rule
 {
@@ -10,7 +11,14 @@ abstract class Rule
 
     abstract public function assert(File $file): bool;
 
+    abstract public function errorMessage(): string;
+
     abstract public function fixable(): bool;
 
     abstract public function fix(): void;
+
+    public function class(): string
+    {
+        return (new ReflectionClass($this))->getShortName();
+    }
 }

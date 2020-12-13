@@ -13,7 +13,7 @@ class ScopeFactory
     {
         $scope = new Scope(
             $name,
-            $values[ScopePreset::PATHS] ?? ['*'],
+            $values[ScopePreset::PATHS] ?? [],
             $values[ScopePreset::EXCLUDES] ?? [],
             $values[ScopePreset::RULES] ?? []
         );

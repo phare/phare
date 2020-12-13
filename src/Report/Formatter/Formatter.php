@@ -4,5 +4,5 @@ namespace Phare\Report\Formatter;
 
 abstract class Formatter
 {
-    abstract public function output(): string;
+    abstract public function output(array $files): string;
 }

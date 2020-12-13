@@ -13,9 +13,9 @@ class FileExtension extends Rule
         $this->extensions = $extensions;
     }
 
-    private function message(): string
+    public function errorMessage(): string
     {
-        return 'File extension must be one of: ' . implode(', ', $this->extensions);
+        return 'Extension should be one of: ' . implode(', ', $this->extensions);
     }
 
     private function fileHasCompliantExtension(File $file): bool

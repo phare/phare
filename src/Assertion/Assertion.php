@@ -42,7 +42,7 @@ class Assertion
         return $this;
     }
 
-    public function status(): string
+    public function getStatus(): string
     {
         return $this->status;
     }
@@ -55,5 +55,15 @@ class Assertion
     public function getFile(): File
     {
         return $this->file;
+    }
+
+    public function getScope(): string
+    {
+        return $this->scope;
+    }
+
+    public function getRule(): Rule
+    {
+        return $this->rule;
     }
 }

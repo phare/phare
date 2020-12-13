@@ -31,7 +31,7 @@ class RunCommand extends Command
                 null,
                 InputOption::VALUE_REQUIRED,
                 'Format of the output report.',
-                'text'
+                'default'
             )
             ->addOption(
                 'report-file',
@@ -55,21 +55,13 @@ class RunCommand extends Command
         $report->start();
 
         foreach ($guideline->getAssertions() as $assertion) {
-            $assertion->perform($input->getOption('fix'));
-
-            $report->iterate($assertion);
-
-            if (!$assertion->successful()) {
-                // $report->addIssue($assertion)
-            }
+            $report->iterate(
+                $assertion->perform($input->getOption('fix'))
+            );
         }
-
-        // Execute Report with report-format and report-file
-        // $report->output($guideline, $input->getOption('report-format'));
 
         $report->end($input->getOption('report-file'));
 
-        return Command::SUCCESS;
-        //return $report->success() ? Command::SUCCESS : Command::FAILURE;
+        return $report->successful() ? Command::SUCCESS : Command::FAILURE;
     }
 }
