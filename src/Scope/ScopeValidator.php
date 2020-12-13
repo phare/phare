@@ -4,7 +4,7 @@ namespace Phare\Scope;
 
 use Phare\Exception\GuidelineConfigurationException;
 use Phare\Preset\Scope as ScopePreset;
-use Phare\Rules\Rule;
+use Phare\Rule\Rule;
 
 class ScopeValidator
 {

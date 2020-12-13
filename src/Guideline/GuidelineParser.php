@@ -8,12 +8,12 @@ use Phare\Preset\Guideline as GuidelinePreset;
 use Phare\Preset\Scope as ScopePreset;
 
 #[Immutable]
-class GuidelineExtendsResolver
+class GuidelineParser
 {
-    public static function resolve(array $values, $extended = []): array
+    public static function parse(array $values, $extended = []): array
     {
         if (isset($values[GuidelinePreset::EXTENDS]) && $values[GuidelinePreset::EXTENDS] !== null) {
-            $values = self::resolve($values[GuidelinePreset::EXTENDS], $values);
+            $values = self::parse($values[GuidelinePreset::EXTENDS], $values);
         }
 
         foreach ($values[GuidelinePreset::SCOPES] as $key => $scopes) {
@@ -24,7 +24,6 @@ class GuidelineExtendsResolver
 
         return $extended;
     }
-
 
     #[Pure]
     private static function mergeScopes(array $scope, array $extendedScope): array

@@ -8,9 +8,9 @@ use Phare\Kernel;
 #[Immutable]
 class GuidelineFileLoader
 {
-    public static function load(string $filePath = null): array
+    public static function load(string $filePath): array
     {
-        $guidelineFilePath = $filePath ?? Kernel::getProjectRoot() . '/phare.php';
+        $guidelineFilePath = Kernel::getProjectRoot() . $filePath;
 
         // If not specific guideline is set, we load the default Phare guideline
         if (!file_exists($guidelineFilePath)) {

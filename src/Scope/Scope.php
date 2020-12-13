@@ -2,11 +2,9 @@
 
 namespace Phare\Scope;
 
-use Phare\File\File;
-use Phare\File\FileCollection;
-use Phare\Issue\Issue;
-use Phare\Issue\IssueCollection;
-use Phare\Rules\Rule;
+use JetBrains\PhpStorm\Pure;
+use Phare\Rule\Rule;
+use Symfony\Component\Finder\Finder;
 
 class Scope
 {
@@ -18,19 +16,15 @@ class Scope
 
     protected array $rules;
 
-    protected FileCollection $fileCollection;
+    protected Finder $finder;
 
-    protected IssueCollection $issueCollection;
-
+    #[Pure]
     public function __construct(string $name, array $paths = ['*'], array $excludes = [], array $rules = [])
     {
         $this->name = $name;
         $this->paths = $paths;
         $this->excludes = $excludes;
         $this->rules = $rules;
-
-        $this->fileCollection = new FileCollection;
-        $this->issueCollection = new IssueCollection;
     }
 
     public function getName(): string
@@ -43,70 +37,28 @@ class Scope
         return $this->paths;
     }
 
-    public function setPaths(array $paths): void
-    {
-        $this->paths = $paths;
-    }
-
     public function getExcludes(): array
     {
         return $this->excludes;
     }
 
-    public function setExcludes(array $excludes): void
-    {
-        $this->excludes = $excludes;
-    }
-
     /**
      * @return Rule[]
      */
-    public function getRules(string $type = null): array
+    public function getRules(): array
     {
-        if (!$type) {
-            return $this->rules;
-        }
-
-        return array_filter($this->rules, static function (Rule $rule) use ($type) {
-            return $rule->isType($type);
-        });
+        return $this->rules;
     }
 
-    public function countRules(): int
+    public function setFinder(Finder $finder): Scope
     {
-        return count($this->getRules());
+        $this->finder = $finder;
+
+        return $this;
     }
 
-    public function setRules(array $rules): void
+    public function getFinder(): Finder
     {
-        $this->rules = $rules;
-    }
-
-    /**
-     * @return FileCollection|File[]
-     */
-    public function getFileCollection(): FileCollection
-    {
-        return $this->fileCollection;
-    }
-
-    public function setFileCollection(FileCollection $fileCollection): void
-    {
-        $this->fileCollection = $fileCollection;
-    }
-
-    public function getIssueCollection(): IssueCollection
-    {
-        return $this->issueCollection;
-    }
-
-    public function hasIssues(): bool
-    {
-        return $this->issueCollection->count() > 0;
-    }
-
-    public function addIssue(Issue $issue): void
-    {
-        $this->issueCollection->add($issue);
+        return $this->finder;
     }
 }

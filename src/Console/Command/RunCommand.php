@@ -2,9 +2,8 @@
 
 namespace Phare\Console\Command;
 
-use Phare\Analysis\AnalysisFactory;
 use Phare\Guideline\GuidelineFactory;
-use Phare\Report\Report;
+use Phare\Report\Progress;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
@@ -21,42 +20,60 @@ class RunCommand extends Command
             ->setHelp('This command trigger all configured Phare checks.')
             ->addOption(
                 'configuration-file',
-                'c',
+                null,
                 InputOption::VALUE_REQUIRED,
                 'Path to the Phare configuration file.',
-                null
+                'phare.php'
             )
             ->addOption(
-                'output-format',
-                'o',
+                'report-format',
+                null,
                 InputOption::VALUE_REQUIRED,
-                'Path to the Phare configuration file.',
+                'Format of the output report.',
                 'text'
+            )
+            ->addOption(
+                'report-file',
+                null,
+                InputOption::VALUE_REQUIRED,
+                'Write the report to the specified file path.',
+            )
+            ->addOption(
+                'fix',
+                null,
+                InputOption::VALUE_NONE,
+                'Try to automatically fix problems.',
             );
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $report = new Report($input, $output);
+        $progress = new Progress($input, $output);
 
-        $report->version();
+        $progress->version();
 
         $guideline = GuidelineFactory::make(
             $input->getOption('configuration-file')
         );
 
-        foreach ($guideline->getScopes() as $scope) {
-            $progress = $report->initialiseProgressBar($scope->countRules());
+        $progress->start(count($guideline->getAssertions()));
 
-            foreach ($progress->iterate($scope->getRules()) as $rule) {
-                $rule->handle($scope);
+        foreach ($guideline->getAssertions() as $assertion) {
+            $assertion->perform($input->getOption('fix'));
+
+            $progress->iterate($assertion->successful());
+
+            if (!$assertion->successful()) {
+                // $report->addIssue($assertion)
             }
-
-            $report->addScope($scope);
         }
 
-        $report->output($input->getOption('output-format'));
+        // Execute Report with report-format and report-file
+        // $report->output($guideline, $input->getOption('report-format'));
+
+        $progress->statistics();
 
         return Command::SUCCESS;
+        //return $report->success() ? Command::SUCCESS : Command::FAILURE;
     }
 }

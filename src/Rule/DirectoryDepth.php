@@ -1,16 +1,16 @@
 <?php
 
-namespace Phare\Rules;
+namespace Phare\Rule;
 
 use Phare\Scope\Scope;
 
-class DirectoryDepth extends FilterRule
+class DirectoryDepth extends Rule
 {
     public function __construct(int $min = null, int $max = null)
     {
     }
 
-    public function handle(Scope $scope): void
+    public function assert(Scope $scope): void
     {
     }
 }

@@ -1,1 +1,5 @@
-# Phare - The meta quality engine for PHP
+# Phare
+
+---
+
+Enlightened code architecture supervisor

@@ -2,29 +2,24 @@
 
 namespace Phare\Guideline;
 
-use Phare\Scope\Scope;
+use Phare\Assertion\Assertion;
 
 class Guideline
 {
     protected array $scopes;
 
-    public function __construct(array $scopes = [])
-    {
-        $this->scopes = $scopes;
-    }
-
-    public function addScope(string $name, Scope $scope): self
-    {
-        $this->scopes[$name] = $scope;
-
-        return $this;
-    }
-
     /**
-     * @return Scope[]
+     * @var Assertion[]
      */
-    public function getScopes(): array
+    protected array $assertions;
+
+    public function addAssertion(Assertion $assertion): void
     {
-        return $this->scopes;
+        $this->assertions[] = $assertion;
+    }
+
+    public function getAssertions(): array
+    {
+        return $this->assertions;
     }
 }

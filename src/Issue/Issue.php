@@ -3,7 +3,7 @@
 namespace Phare\Issue;
 
 use Phare\File\File;
-use Phare\Rules\Rule;
+use Phare\Rule\Rule;
 
 class Issue
 {

@@ -1,11 +1,11 @@
 <?php
 
+use Phare\Preset\Guideline;
 use Phare\Preset\Scope;
-use Phare\Rules\CodeSniffer\CodeSnifferSettings;
-use Phare\Rules\FileExtension;
+use Phare\Rule\FileExtension;
 
 return [
-    'scopes' => [
+    Guideline::SCOPES => [
         '*' => [
             Scope::RULES => [
                 // Structure rules

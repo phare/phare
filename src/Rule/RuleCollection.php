@@ -1,6 +1,6 @@
 <?php
 
-namespace Phare\Rules;
+namespace Phare\Rule;
 
 use Phare\Scope\Scope;
 use Symfony\Component\Finder\Finder;

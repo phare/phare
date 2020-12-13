@@ -3,7 +3,6 @@
 namespace Phare\Issue;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use JetBrains\PhpStorm\ArrayShape;
 
 /**
  * @method IssueCollection|Issue[] current()

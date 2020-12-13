@@ -1,12 +1,10 @@
 <?php
 
-namespace Phare\Rules;
+namespace Phare\Rule;
 
 use Phare\File\File;
-use Phare\Issue\Issue;
-use Phare\Scope\Scope;
 
-class FileExtension extends FilterRule
+class FileExtension extends Rule
 {
     private array $extensions;
 
@@ -25,18 +23,18 @@ class FileExtension extends FilterRule
         return in_array($file->getExtension(), $this->extensions, true);
     }
 
-    public function handle(Scope $scope): void
+    public function assert(File $file): bool
     {
-        foreach ($scope->getFileCollection() as $file) {
-            if ($this->fileHasCompliantExtension($file)) {
-                continue;
-            }
+        return $this->fileHasCompliantExtension($file);
+    }
 
-            $scope->addIssue(
-                new Issue($file, $this, $this->message())
-            );
+    public function fixable(): bool
+    {
+        // TODO: Implement fixable() method.
+    }
 
-            $file->setFiltered();
-        }
+    public function fix(): void
+    {
+        // TODO: Implement fix() method.
     }
 }

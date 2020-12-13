@@ -1,16 +1,16 @@
 <?php
 
-namespace Phare\Rules;
+namespace Phare\Rule;
 
 use Phare\Scope\Scope;
 
-class FileRegex extends FilterRule
+class DirectoryRegex extends Rule
 {
     public function __construct(string $regex)
     {
     }
 
-    public function handle(Scope $scope): void
+    public function assert(Scope $scope): void
     {
     }
 }

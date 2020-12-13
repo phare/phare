@@ -2,7 +2,7 @@
 
 namespace Phare\Report;
 
-use Phare\Analysis\Analysis;
+use Phare\Guideline\Guideline;
 use Phare\Issue\Issue;
 use Phare\Issue\IssueCollection;
 use Phare\Kernel;
@@ -20,11 +20,6 @@ class Report
 
     private SymfonyStyle $io;
 
-    /**
-     * @var Scope[]
-     */
-    private array $scopes;
-
     public function __construct(InputInterface $input, OutputInterface $output)
     {
         $this->input = $input;
@@ -36,7 +31,7 @@ class Report
     public function version(): void
     {
         $this->io->newLine();
-        $this->io->write('Phare ' . Kernel::VERSION . '.');
+        $this->io->writeln('Phare ' . Kernel::VERSION . '.');
         $this->io->newLine();
     }
 
@@ -51,14 +46,9 @@ class Report
         return $progress;
     }
 
-    public function addScope(Scope $scope): void
+    public function output(Guideline $guideline, string $format): void
     {
-        $this->scopes[] = $scope;
-    }
-
-    public function output(string $format): void
-    {
-        foreach ($this->scopes as $scope) {
+        foreach ($guideline->getScopes() as $scope) {
             $this->outputScope($scope);
         }
 
@@ -88,6 +78,7 @@ class Report
     private function reportScopeIssues(IssueCollection $issueCollection): void
     {
         $this->io->warning($issueCollection->count() . ' issues found in scope.');
+        $this->success = false;
 
         foreach ($issueCollection->groupByFile() as $file => $fileIssues) {
             $this->io->table(
@@ -101,5 +92,10 @@ class Report
     {
         $this->io->title('Execution statistics:');
         $this->io->writeln('Phare executed in: ' . round(microtime(true) - WARDEN_START, 3) . 's');
+    }
+
+    public function success(): bool
+    {
+        return $this->success;
     }
 }

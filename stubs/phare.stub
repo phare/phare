@@ -1,0 +1,64 @@
+<?php
+
+use Phare\Preset\Scope;
+use Phare\Preset\Regex;
+use Phare\Rules\FileSuffix;
+use Phare\Rules\DirectoryDepth;
+use Phare\Rules\DirectoryRegex;
+use Phare\Rules\FileExtension;
+use Phare\Rules\FileRegex;
+use Phare\Preset\Guideline;
+
+/*
+|--------------------------------------------------------------------------
+| Settings of your Phare guideline
+|--------------------------------------------------------------------------
+*/
+return [
+    /*
+    |--------------------------------------------------------------------------
+    | Extends guidelines
+    |--------------------------------------------------------------------------
+    |
+    | Easily share and re-use your favorite code guidelines across all your projects.
+    | All scopes defined in the extended guideline will be automatically
+    | imported on top of the one defined in this file.
+    |
+    | Supported: Guideline class, array or null
+    |
+    */
+    Guideline::EXTENDS => Guideline::%preset%(),
+
+    /*
+    |--------------------------------------------------------------------------
+    | Project scopes
+    |--------------------------------------------------------------------------
+    |
+    | Scopes are used to apply a set of rules to a specific part of your
+    | project. You can use a single scope for your whole project
+    | by applying it to all files with "*".
+    |
+    */
+    Guideline::SCOPES => [
+        'app' => [
+            Scope::PATHS => [
+                // 'src/App/',
+            ],
+
+            Scope::RULES => [
+                // new FileRegex(Regex::CAMEL_CASE),
+                // new FileExtension(['php']),
+            ],
+        ],
+
+        'controllers' => [
+            Scope::PATHS => [
+                // 'src/App/*/*/Controllers/',
+            ],
+
+            Scope::RULES => [
+                // new FileSuffix('Controller'),
+            ],
+        ],
+    ],
+];
