@@ -27,7 +27,7 @@ final class FileExtensionTest extends TestCase
     public function testHandle(): void
     {
         $scope = $this->makeScope(
-            ['tests/stub/public/css'],
+            ['tests/stubs/public/css'],
             [new FileExtension(['php'])]
         );
 
