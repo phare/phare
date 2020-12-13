@@ -30,6 +30,7 @@ class FileExtension extends Rule
 
     public function fixable(): bool
     {
+        return true;
         // TODO: Implement fixable() method.
     }
 

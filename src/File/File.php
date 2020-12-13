@@ -2,13 +2,12 @@
 
 namespace Phare\File;
 
+use Phare\Assertion\Assertion;
 use Symfony\Component\Finder\SplFileInfo;
 
 class File
 {
     private SplFileInfo $file;
-
-    private array $assertions;
 
     public function __construct(SplFileInfo $file)
     {
@@ -23,20 +22,5 @@ class File
     public function getExtension(): string
     {
         return $this->file->getExtension();
-    }
-
-    public function addAssertion(Assertion $assertion): void
-    {
-        $this->assertions[] = $assertion;
-    }
-
-    public function mergeAssertions(array $assertions): void
-    {
-        $this->assertions = array_merge($this->assertions, $assertions);
-    }
-
-    public function getAssertions(): array
-    {
-        return $this->assertions;
     }
 }

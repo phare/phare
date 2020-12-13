@@ -5,7 +5,7 @@ declare(strict_types=1);
 
 use Phare\Kernel;
 
-define('WARDEN_START', microtime(true));
+define('PHARE_START', microtime(true));
 
 (static function () {
     $autoloadPaths = [

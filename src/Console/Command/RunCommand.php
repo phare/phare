@@ -3,11 +3,12 @@
 namespace Phare\Console\Command;
 
 use Phare\Guideline\GuidelineFactory;
-use Phare\Report\Progress;
+use Phare\Report\ReportFactory;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Console\Style\SymfonyStyle;
 
 class RunCommand extends Command
 {
@@ -48,20 +49,15 @@ class RunCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $progress = new Progress($input, $output);
+        $report = ReportFactory::make($input, $output, $input->getOption('report-format'));
+        $guideline = GuidelineFactory::make($input->getOption('configuration-file'));
 
-        $progress->version();
-
-        $guideline = GuidelineFactory::make(
-            $input->getOption('configuration-file')
-        );
-
-        $progress->start(count($guideline->getAssertions()));
+        $report->start();
 
         foreach ($guideline->getAssertions() as $assertion) {
             $assertion->perform($input->getOption('fix'));
 
-            $progress->iterate($assertion->successful());
+            $report->iterate($assertion);
 
             if (!$assertion->successful()) {
                 // $report->addIssue($assertion)
@@ -71,7 +67,7 @@ class RunCommand extends Command
         // Execute Report with report-format and report-file
         // $report->output($guideline, $input->getOption('report-format'));
 
-        $progress->statistics();
+        $report->end($input->getOption('report-file'));
 
         return Command::SUCCESS;
         //return $report->success() ? Command::SUCCESS : Command::FAILURE;

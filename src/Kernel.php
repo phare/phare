@@ -3,6 +3,7 @@
 namespace Phare;
 
 use JetBrains\PhpStorm\Pure;
+use NunoMaduro\Collision\Provider;
 use Phare\Console\Application;
 
 class Kernel
@@ -18,7 +19,7 @@ class Kernel
 
     public static function bootstrap(): void
     {
-        (new \NunoMaduro\Collision\Provider)->register();
+        (new Provider)->register();
 
         (new Application)->run();
     }

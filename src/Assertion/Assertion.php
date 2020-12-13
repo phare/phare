@@ -7,13 +7,17 @@ use Phare\Rule\Rule;
 
 class Assertion
 {
+    public const STATUS_SUCCESS = 'success';
+    public const STATUS_FIXED = 'fixed';
+    public const STATUS_ERROR = 'error';
+
     private string $scope;
 
     private File $file;
 
     private Rule $rule;
 
-    private bool $success = true;
+    private string $status = self::STATUS_SUCCESS;
 
     public function __construct(string $scope, File $file, Rule $rule)
     {
@@ -28,17 +32,28 @@ class Assertion
             return $this;
         }
 
+        $this->status = self::STATUS_ERROR;
+
         if ($shouldFix && $this->rule->fixable()) {
             $this->rule->fix();
+            $this->status = self::STATUS_FIXED;
         }
-
-        $this->success = false;
 
         return $this;
     }
 
+    public function status(): string
+    {
+        return $this->status;
+    }
+
     public function successful(): bool
     {
-        return $this->success;
+        return $this->status === self::STATUS_SUCCESS;
+    }
+
+    public function getFile(): File
+    {
+        return $this->file;
     }
 }

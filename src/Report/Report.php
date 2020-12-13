@@ -2,100 +2,109 @@
 
 namespace Phare\Report;
 
-use Phare\Guideline\Guideline;
-use Phare\Issue\Issue;
-use Phare\Issue\IssueCollection;
+use Phare\Assertion\Assertion;
 use Phare\Kernel;
-use Phare\Scope\Scope;
-use Symfony\Component\Console\Helper\ProgressBar;
-use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Output\OutputInterface;
+use Phare\Report\Formatter\Formatter;
+use Phare\Report\Formatter\TextFormatter;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
 class Report
 {
-    private InputInterface $input;
-
-    private OutputInterface $output;
+    public const FORMATS = [
+        'text' => TextFormatter::class,
+    ];
 
     private SymfonyStyle $io;
 
-    public function __construct(InputInterface $input, OutputInterface $output)
-    {
-        $this->input = $input;
-        $this->output = $output;
+    private int $progress = 0;
 
-        $this->io = new SymfonyStyle($input, $output);
+    private Formatter $formatter;
+
+    private array $files;
+
+    public function __construct(SymfonyStyle $io, Formatter $formatter)
+    {
+        $this->io = $io;
+        $this->formatter = $formatter;
     }
 
-    public function version(): void
+    public function start(): void
+    {
+         if (!$this->io->isQuiet()) {
+             $this->outputVersion();
+        }
+    }
+
+    public function iterate(Assertion $assertion): void
+    {
+        $this->progress += 1;
+
+        $this->addAssertionToFiles($assertion);
+
+        if (!$this->io->isQuiet()) {
+            $this->outputProgress($assertion);
+        }
+    }
+
+    public function end(string $reportFile = null): void
+    {
+        if ($reportFile) {
+            file_put_contents($reportFile, $this->formatter->output());
+        }
+
+        if (!$this->io->isQuiet()) {
+            if (!$reportFile) {
+                $this->outputReport($this->formatter->output());
+            }
+
+            $this->outputStatistics();
+        }
+    }
+
+    protected function outputVersion(): void
     {
         $this->io->newLine();
         $this->io->writeln('Phare ' . Kernel::VERSION . '.');
         $this->io->newLine();
     }
 
-    public function initialiseProgressBar(int $length): ProgressBar
+    protected function outputProgress(Assertion $assertion): void
     {
-        $section = $this->output->section();
+        // @TODO: replace with match
+        $this->io->write([
+            Assertion::STATUS_ERROR => '<fg=red>E</>',
+            Assertion::STATUS_FIXED => '<fg=yellow>F</>',
+            Assertion::STATUS_SUCCESS => '.',
+        ][$assertion->status()]);
 
-        $progress = new ProgressBar($section);
-
-        $progress->start($length);
-
-        return $progress;
-    }
-
-    public function output(Guideline $guideline, string $format): void
-    {
-        foreach ($guideline->getScopes() as $scope) {
-            $this->outputScope($scope);
-        }
-
-        if ($this->io->isVeryVerbose()) {
-            $this->statistics();
+        if ($this->progress % 80 === 0) {
+            $this->io->newLine();
         }
     }
 
-    private function outputScope(Scope $scope): void
+    private function outputReport(string $output): void
     {
-        $this->io->title('Scope: ' . $scope->getName());
+        $this->io->newLine(2);
+        $this->io->writeln($output);
+    }
 
-        $issueCollection = $scope->getIssueCollection();
+    protected function outputStatistics(): void
+    {
+        $time = round(microtime(true) - PHARE_START, 3);
+        $memory = round(memory_get_peak_usage() / 1024 / 1024);
 
-        if ($issueCollection->isEmpty()) {
-            $this->io->success('No issues found in scope.');
-        } else {
-            $this->reportScopeIssues($issueCollection);
+        $this->io->newLine();
+        $this->io->writeln("Time: {$time}s. Memory: {$memory}MB");
+    }
+
+    private function addAssertionToFiles(Assertion $assertion): void
+    {
+        $path = $assertion->getFile()->getRealPath();
+
+        if (!isset($this->files[$path])) {
+            $this->files[$path] = [];
         }
 
-        $this->io->writeln($scope->getFileCollection()->count() . ' files analyzed.');
-    }
-
-    /**
-     * @param IssueCollection $issueCollection
-     */
-    private function reportScopeIssues(IssueCollection $issueCollection): void
-    {
-        $this->io->warning($issueCollection->count() . ' issues found in scope.');
-        $this->success = false;
-
-        foreach ($issueCollection->groupByFile() as $file => $fileIssues) {
-            $this->io->table(
-                ['[' . count($fileIssues) . '] ' . $file],
-                array_map(static fn(Issue $issue) => [$issue->getMessage()], $fileIssues)
-            );
-        }
-    }
-
-    private function statistics(): void
-    {
-        $this->io->title('Execution statistics:');
-        $this->io->writeln('Phare executed in: ' . round(microtime(true) - WARDEN_START, 3) . 's');
-    }
-
-    public function success(): bool
-    {
-        return $this->success;
+        $this->files[$path][] = $assertion;
     }
 }
