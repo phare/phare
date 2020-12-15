@@ -5,9 +5,8 @@ namespace Phare\Report;
 use JetBrains\PhpStorm\Pure;
 use Phare\Assertion\Assertion;
 use Phare\Kernel;
-use Phare\Report\Formatter\Formatter;
 use Phare\Report\Formatter\CommandLineFormatter;
-use SplObjectStorage;
+use Phare\Report\Formatter\Formatter;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
 class Report

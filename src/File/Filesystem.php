@@ -4,8 +4,6 @@
 namespace Phare\File;
 
 use Symfony\Component\Filesystem\Filesystem as SymfonyFilesystem;
-use Symfony\Component\Finder\Finder;
-use Symfony\Component\Finder\SplFileInfo;
 
 class Filesystem
 {

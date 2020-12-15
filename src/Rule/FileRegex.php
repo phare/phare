@@ -3,7 +3,7 @@
 namespace Phare\Rule;
 
 use Phare\File\File;
-use Phare\File\Filesystem;
+use Phare\Fixer\Fixer;
 use Phare\Preset\Regex;
 use Symfony\Component\String\UnicodeString;
 
@@ -54,6 +54,9 @@ class FileRegex extends Rule
                 break;
         }
 
-        Filesystem::rename($file, $file->getPath() . "/$fileName." . $file->getExtension());
+        Fixer::file()->rename(
+            $file,
+            $file->getPath() . "/$fileName." . $file->getExtension()
+        );
     }
 }
