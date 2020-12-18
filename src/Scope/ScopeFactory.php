@@ -2,15 +2,15 @@
 
 namespace Phare\Scope;
 
-use JetBrains\PhpStorm\Immutable;
 use Phare\Preset\Scope as ScopePreset;
 use Symfony\Component\Finder\Finder;
 
-#[Immutable]
 class ScopeFactory
 {
     public static function make(string $name, array $values): Scope
     {
+        ScopeValidator::validate($values);
+
         $scope = new Scope(
             $name,
             $values[ScopePreset::PATHS] ?? [],
@@ -23,9 +23,10 @@ class ScopeFactory
         }
 
         $scope->setFinder(
-            (new Finder())->files()
+            (new Finder())
                 ->ignoreUnreadableDirs()
-                ->exclude($scope->getExcludes())
+                ->notPath($scope->getExcludes())
+                ->files()
                 ->in($scope->getPaths())
         );
 

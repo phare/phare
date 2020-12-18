@@ -2,7 +2,7 @@
 
 namespace Phare\Scope;
 
-use Phare\Exception\GuidelineConfigurationException;
+use Phare\Exception\ScopeConfigurationException;
 use Phare\Preset\Scope as ScopePreset;
 use Phare\Rule\Rule;
 
@@ -15,16 +15,16 @@ class ScopeValidator
     ];
 
     /**
-     * @throws GuidelineConfigurationException
+     * @throws ScopeConfigurationException
      */
     public static function validate(array $values): void
     {
         $difference = array_diff(array_keys($values), self::$authorizedKeys);
 
         if (!empty($difference)) {
-            throw new GuidelineConfigurationException(
+            throw new ScopeConfigurationException(
                 'A scope array can only contain the following keys: '
-                . implode(', ', self::$authorizedKeys) . '. Found: ' . array_keys($values)
+                . implode(', ', self::$authorizedKeys) . '. Found: ' . implode(', ', array_keys($values))
             );
         }
 
@@ -42,12 +42,12 @@ class ScopeValidator
     }
 
     /**
-     * @throws GuidelineConfigurationException
+     * @throws ScopeConfigurationException
      */
     private static function validateArrayOfPaths($paths): void
     {
         if (!is_array($paths) && $paths !== null) {
-            throw new GuidelineConfigurationException(
+            throw new ScopeConfigurationException(
                 'The "paths" property of your guideline file should be of type array or null.'
                 . 'Found: ' . gettype($paths)
             );
@@ -55,7 +55,7 @@ class ScopeValidator
 
         foreach ($paths as $path) {
             if (!is_string($path)) {
-                throw new GuidelineConfigurationException(
+                throw new ScopeConfigurationException(
                     'The "paths" property of your guideline file should be an array of strings.'
                     . 'Found: ' . gettype($paths)
                 );
@@ -64,12 +64,12 @@ class ScopeValidator
     }
 
     /**
-     * @throws GuidelineConfigurationException
+     * @throws ScopeConfigurationException
      */
     private static function validateArrayOfRules($rules): void
     {
         if (!is_array($rules) && $rules !== null) {
-            throw new GuidelineConfigurationException(
+            throw new ScopeConfigurationException(
                 'The "rules" property of your guideline file should be of type array or null.'
                 . 'Found: ' . gettype($rules)
             );
@@ -77,7 +77,7 @@ class ScopeValidator
 
         foreach ($rules as $rule) {
             if (!($rule instanceof Rule)) {
-                throw new GuidelineConfigurationException(
+                throw new ScopeConfigurationException(
                     'The "rules" property of your guideline file should be an array of Rule classes.'
                     . 'Found: ' . gettype($rules)
                 );

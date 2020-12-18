@@ -2,7 +2,6 @@
 
 namespace Phare;
 
-use JetBrains\PhpStorm\Pure;
 use NunoMaduro\Collision\Provider;
 use Phare\Console\Application;
 
@@ -24,13 +23,11 @@ class Kernel
         (new Application)->run();
     }
 
-    #[Pure]
     public static function getProjectRoot(): string
     {
         return getcwd();
     }
 
-    #[Pure]
     public static function getSourceRoot(): string
     {
         return __DIR__;

@@ -11,7 +11,7 @@ class Guideline
     /**
      * @var Assertion[]
      */
-    protected array $assertions;
+    protected array $assertions = [];
 
     public function addAssertion(Assertion $assertion): void
     {

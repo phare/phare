@@ -14,7 +14,7 @@ class FileFixer
         $this->filesystem = $filesystem;
     }
 
-    public function rename(File $file, $fileName): void
+    public function rename(File $file, string $fileName): void
     {
         $this->filesystem->rename($file->getRealPath(), $fileName);
 

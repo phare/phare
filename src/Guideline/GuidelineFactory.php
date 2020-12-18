@@ -2,12 +2,10 @@
 
 namespace Phare\Guideline;
 
-use JetBrains\PhpStorm\Immutable;
 use Phare\Assertion\AssertionFactory;
 use Phare\Preset\Guideline as GuidelinePreset;
 use Phare\Scope\ScopeFactory;
 
-#[Immutable]
 abstract class GuidelineFactory
 {
     public static function make(string $filePath): Guideline
@@ -28,6 +26,7 @@ abstract class GuidelineFactory
             }
 
             foreach (AssertionFactory::make($scope) as $assertion) {
+                echo $assertion->getFile()->getRealPath() . PHP_EOL;
                 $guideline->addAssertion($assertion);
             }
         }

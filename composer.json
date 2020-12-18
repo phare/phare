@@ -40,10 +40,7 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "Phare\\Phare\\Tests\\": "tests",
-            "Stub\\App\\": "stub/src/App",
-            "Stub\\Domain\\": "stub/src/Domain",
-            "Stub\\Support\\": "stub/src/Support"
+            "Phare\\Tests\\": "tests"
         }
     },
     "config": {

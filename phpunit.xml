@@ -4,16 +4,41 @@
          bootstrap="vendor/autoload.php"
          cacheResultFile=".phpunit.cache/test-results"
          executionOrder="depends,defects"
-         forceCoversAnnotation="true"
-         beStrictAboutCoversAnnotation="true"
          beStrictAboutOutputDuringTests="true"
          beStrictAboutTodoAnnotatedTests="true"
          failOnRisky="true"
          failOnWarning="true"
          verbose="true">
     <testsuites>
-        <testsuite name="Rules">
-            <directory suffix="Test.php">tests/Rules</directory>
+        <testsuite name="Assertion">
+            <directory suffix="Test.php">tests/Assertion</directory>
+        </testsuite>
+        <testsuite name="Console">
+            <directory suffix="Test.php">tests/Console</directory>
+        </testsuite>
+        <testsuite name="Exception">
+            <directory suffix="Test.php">tests/Exception</directory>
+        </testsuite>
+        <testsuite name="File">
+            <directory suffix="Test.php">tests/File</directory>
+        </testsuite>
+        <testsuite name="Fixer">
+            <directory suffix="Test.php">tests/Fixer</directory>
+        </testsuite>
+        <testsuite name="Guideline">
+            <directory suffix="Test.php">tests/Guideline</directory>
+        </testsuite>
+        <testsuite name="Preset">
+            <directory suffix="Test.php">tests/Preset</directory>
+        </testsuite>
+        <testsuite name="Report">
+            <directory suffix="Test.php">tests/Report</directory>
+        </testsuite>
+        <testsuite name="Rule">
+            <directory suffix="Test.php">tests/Rule</directory>
+        </testsuite>
+        <testsuite name="Scope">
+            <directory suffix="Test.php">tests/Scope</directory>
         </testsuite>
     </testsuites>
 

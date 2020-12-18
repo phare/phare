@@ -2,12 +2,9 @@
 
 namespace Phare\Guideline;
 
-use JetBrains\PhpStorm\Immutable;
-use JetBrains\PhpStorm\Pure;
 use Phare\Preset\Guideline as GuidelinePreset;
 use Phare\Preset\Scope as ScopePreset;
 
-#[Immutable]
 class GuidelineParser
 {
     public static function parse(array $values, $extended = []): array
@@ -25,7 +22,6 @@ class GuidelineParser
         return $extended;
     }
 
-    #[Pure]
     private static function mergeScopes(array $scope, array $extendedScope): array
     {
         if (isset($scope[ScopePreset::PATHS])) {
@@ -49,7 +45,6 @@ class GuidelineParser
         return $extendedScope;
     }
 
-    #[Pure]
     private static function mergeRules(array $rules, array $extendedRules): array
     {
         $existingRules = [];

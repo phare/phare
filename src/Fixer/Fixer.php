@@ -6,7 +6,7 @@ use Symfony\Component\Filesystem\Filesystem;
 
 class Fixer
 {
-    public static function file(): FileFixer
+    public function file(): FileFixer
     {
         return new FileFixer(new Filesystem());
     }

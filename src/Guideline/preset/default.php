@@ -7,6 +7,15 @@ use Phare\Rule\FileExtension;
 return [
     Guideline::SCOPES => [
         '*' => [
+            Scope::PATHS => [
+                '*',
+            ],
+
+            Scope::EXCLUDES => [
+                '**/tests',
+                '**/vendor',
+            ],
+
             Scope::RULES => [
                 // Structure rules
                 // new FileRegex(Regex::CAMEL_CASE),

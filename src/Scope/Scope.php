@@ -2,7 +2,6 @@
 
 namespace Phare\Scope;
 
-use JetBrains\PhpStorm\Pure;
 use Phare\Rule\Rule;
 use Symfony\Component\Finder\Finder;
 
@@ -16,9 +15,8 @@ class Scope
 
     protected array $rules;
 
-    protected Finder $finder;
+    protected ?Finder $finder = null;
 
-    #[Pure]
     public function __construct(string $name, array $paths = ['*'], array $excludes = [], array $rules = [])
     {
         $this->name = $name;
@@ -57,7 +55,7 @@ class Scope
         return $this;
     }
 
-    public function getFinder(): Finder
+    public function getFinder(): ?Finder
     {
         return $this->finder;
     }

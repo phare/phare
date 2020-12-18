@@ -8,5 +8,5 @@ class Regex
 
     public const CAMEL_CASE = '/^[a-z]+(?:[A-Z][a-z]+)*$/';
 
-    public const SNAKE_CASE = '/[a-z_]*/';
+    public const SNAKE_CASE = '/^[a-z_]*$/';
 }

@@ -2,12 +2,9 @@
 
 namespace Phare\Guideline;
 
-use JetBrains\PhpStorm\Immutable;
 use Phare\Exception\GuidelineConfigurationException;
 use Phare\Preset\Guideline as GuidelinePreset;
-use Phare\Scope\ScopeValidator;
 
-#[Immutable]
 class GuidelineValidator
 {
     private static array $authorizedKeys = [
@@ -25,7 +22,7 @@ class GuidelineValidator
         if (!empty($difference)) {
             throw new GuidelineConfigurationException(
                 'A guideline array can only contain the following keys: '
-                . implode(', ', self::$authorizedKeys) . '. Found: ' . array_keys($values)
+                . implode(', ', self::$authorizedKeys) . '. Found: ' . implode(', ', array_keys($values))
             );
         }
 
@@ -70,8 +67,6 @@ class GuidelineValidator
                     . 'Found: ' . gettype($scopes)
                 );
             }
-
-           ScopeValidator::validate($scope);
         }
     }
 }

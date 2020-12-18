@@ -2,7 +2,6 @@
 
 namespace Phare\Report;
 
-use JetBrains\PhpStorm\Pure;
 use Phare\Assertion\Assertion;
 use Phare\Kernel;
 use Phare\Report\Formatter\CommandLineFormatter;
@@ -73,7 +72,6 @@ class Report
         $this->outputStatistics();
     }
 
-    #[Pure]
     public function successful(): bool
     {
         return count($this->assertions) === 0;

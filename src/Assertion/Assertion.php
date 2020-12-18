@@ -3,6 +3,7 @@
 namespace Phare\Assertion;
 
 use Phare\File\File;
+use Phare\Fixer\Fixer;
 use Phare\Rule\Rule;
 
 class Assertion
@@ -35,7 +36,7 @@ class Assertion
         $this->status = self::STATUS_ERROR;
 
         if ($shouldFix && $this->rule->fixable()) {
-            $this->rule->fix($this->file);
+            $this->rule->fix(new Fixer(), $this->file);
             $this->status = self::STATUS_FIXED;
         }
 

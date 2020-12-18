@@ -2,9 +2,9 @@
 
 namespace Phare\Tests\Traits;
 
+use Phare\Preset\Scope as ScopePreset;
 use Phare\Scope\Scope;
 use Phare\Scope\ScopeFactory;
-use Phare\Preset\Scope as ScopePreset;
 
 trait CreateScopes
 {

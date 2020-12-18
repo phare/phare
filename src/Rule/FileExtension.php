@@ -2,7 +2,9 @@
 
 namespace Phare\Rule;
 
+use Phare\Exception\RuleArgumentException;
 use Phare\File\File;
+use Phare\Fixer\Fixer;
 
 class FileExtension extends Rule
 {
@@ -10,6 +12,10 @@ class FileExtension extends Rule
 
     public function __construct(array $extensions)
     {
+        if (empty($extensions)) {
+            throw new RuleArgumentException('FileExtension $extensions can\'t be empty');
+        }
+
         $this->extensions = $extensions;
     }
 
@@ -28,5 +34,5 @@ class FileExtension extends Rule
         return false;
     }
 
-    public function fix(File $file): void {}
+    public function fix(Fixer $fixer, File $file): void {}
 }

@@ -2,12 +2,10 @@
 
 namespace Phare\Report\Formatter;
 
-use JetBrains\PhpStorm\Pure;
 use Phare\Assertion\Assertion;
 
 class CommandLineFormatter extends Formatter
 {
-    #[Pure]
     public function output(array $assertions): string
     {
         $output = [];

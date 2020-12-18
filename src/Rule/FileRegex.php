@@ -37,7 +37,7 @@ class FileRegex extends Rule
         return in_array($this->regex, $this->fixableRegex, true);
     }
 
-    public function fix(File $file): void
+    public function fix(Fixer $fixer, File $file): void
     {
         $fileName = new UnicodeString($file->getFilenameWithoutExtension());
 
@@ -52,9 +52,11 @@ class FileRegex extends Rule
             case Regex::SNAKE_CASE:
                 $fileName = $fileName->snake();
                 break;
+            default:
+                return;
         }
 
-        Fixer::file()->rename(
+        $fixer->file()->rename(
             $file,
             $file->getPath() . "/$fileName." . $file->getExtension()
         );

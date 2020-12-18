@@ -1,8 +1,6 @@
 <?php
 
-
 namespace Phare\Report;
-
 
 use Phare\Exception\InvalidReportFormatException;
 use Symfony\Component\Console\Input\InputInterface;
