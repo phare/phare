@@ -7,13 +7,9 @@ use Phare\Rule\FileExtension;
 return [
     Guideline::SCOPES => [
         '*' => [
-            Scope::PATHS => [
-                '*',
-            ],
-
             Scope::EXCLUDES => [
-                '**/tests',
-                '**/vendor',
+                'tests',
+                'vendor',
             ],
 
             Scope::RULES => [

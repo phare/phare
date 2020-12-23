@@ -41,7 +41,6 @@ class ScopeTest extends TestCase
         $scope = new Scope('default', [], [], []);
         $finder = new Finder();
 
-        self::assertNull($scope->getFinder());
         $scope->setFinder($finder);
         self::assertEquals($finder, $scope->getFinder());
     }

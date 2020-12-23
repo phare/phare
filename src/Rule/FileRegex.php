@@ -29,7 +29,7 @@ class FileRegex extends Rule
 
     public function assert(File $file): bool
     {
-        return preg_match($this->regex, $file->getFilenameWithoutExtension());
+        return preg_match($this->regex, $file->getFilenameWithoutExtension()) === 1;
     }
 
     public function fixable(): bool

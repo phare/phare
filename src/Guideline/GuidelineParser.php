@@ -7,7 +7,7 @@ use Phare\Preset\Scope as ScopePreset;
 
 class GuidelineParser
 {
-    public static function parse(array $values, $extended = []): array
+    public static function parse(array $values, array $extended = []): array
     {
         if (isset($values[GuidelinePreset::EXTENDS]) && $values[GuidelinePreset::EXTENDS] !== null) {
             $values = self::parse($values[GuidelinePreset::EXTENDS], $values);

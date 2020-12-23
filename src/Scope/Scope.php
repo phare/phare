@@ -15,7 +15,7 @@ class Scope
 
     protected array $rules;
 
-    protected ?Finder $finder = null;
+    protected Finder $finder;
 
     public function __construct(string $name, array $paths = ['*'], array $excludes = [], array $rules = [])
     {
@@ -55,7 +55,7 @@ class Scope
         return $this;
     }
 
-    public function getFinder(): ?Finder
+    public function getFinder(): Finder
     {
         return $this->finder;
     }

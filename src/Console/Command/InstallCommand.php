@@ -35,12 +35,20 @@ class InstallCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $io = new SymfonyStyle($input, $output);
+        /** @var string|null $preset */
         $preset = $input->getArgument('preset');
-        $configPath = Kernel::getProjectRoot() . '/phare.php';
+        $configPath = Kernel::getProjectRoot() . 'phare.php';
+        $io = new SymfonyStyle($input, $output);
 
         if (file_exists($configPath) && !$this->shouldOverwrite($input, $output)) {
             return Command::SUCCESS;
+        }
+
+        $fileContent = file_get_contents(self::STUB_CONFIG_PATH);
+
+        if (!$fileContent) {
+            $io->error("Could not read content of the stub configuration file.");
+            return Command::FAILURE;
         }
 
         if (!is_null($preset) && !$this->isValidPreset($preset)) {
@@ -54,7 +62,7 @@ class InstallCommand extends Command
 
         file_put_contents(
             $configPath,
-            str_replace('%preset%', $preset, file_get_contents(self::STUB_CONFIG_PATH))
+            str_replace('%preset%', $preset, $fileContent)
         );
 
         $io->success("Configuration file created with preset [$preset] in $configPath");

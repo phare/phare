@@ -3,6 +3,7 @@
 namespace Phare\Rule;
 
 use Phare\File\File;
+use Phare\Fixer\Fixer;
 
 class FileSuffix extends Rule
 {
@@ -12,20 +13,20 @@ class FileSuffix extends Rule
 
     public function errorMessage(): string
     {
-        // TODO: Implement errorMessage() method.
+        return 'error';
     }
 
     public function assert(File $file): bool
     {
-        // TODO: Implement assert() method.
+        return false;
     }
 
     public function fixable(): bool
     {
-        // TODO: Implement fixable() method.
+        return false;
     }
 
-    public function fix(\Phare\Fixer\Fixer $fixer, File $file): void
+    public function fix(Fixer $fixer, File $file): void
     {
         // TODO: Implement fix() method.
     }

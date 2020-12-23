@@ -13,11 +13,11 @@ class Application extends BaseApplication
     {
         parent::__construct('Phare', Kernel::VERSION);
 
-        $run = new RunCommand;
+        $run = new RunCommand();
 
         $this->add($run);
         $this->add(new InstallCommand());
 
-        $this->setDefaultCommand($run->getName());
+        $this->setDefaultCommand($run->getName() ?? 'run');
     }
 }

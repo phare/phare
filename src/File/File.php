@@ -2,6 +2,7 @@
 
 namespace Phare\File;
 
+use Phare\Exception\FileDoesNotExistException;
 use Phare\Kernel;
 use SplFileInfo;
 
@@ -31,9 +32,18 @@ class File
         return $this->file->getPath();
     }
 
+    /**
+     * @throws FileDoesNotExistException
+     */
     public function getRealPath(): string
     {
-        return $this->file->getRealPath();
+        $realPath = $this->file->getRealPath();
+
+        if (!$realPath) {
+            throw new FileDoesNotExistException('File does not exist: ' . $this->getPath());
+        }
+
+        return $realPath;
     }
 
     public function getExtension(): string

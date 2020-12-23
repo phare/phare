@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<ruleset name="Laravel Standards">
+    <description>The Laravel Coding Standards</description>
+
+    <file>src/</file>
+    <file>tests/</file>
+    <exclude-pattern>tests/stubs/</exclude-pattern>
+
+    <arg name="colors"/>
+    <arg value="p"/>
+    <arg value="s"/>
+
+    <ini name="memory_limit" value="128M"/>
+
+    <rule ref="PSR12" />
+
+    <rule ref="PSR1.Methods.CamelCapsMethodName.NotCamelCaps">
+        <exclude-pattern>tests/</exclude-pattern>
+    </rule>
+</ruleset>

@@ -34,5 +34,7 @@ class FileExtension extends Rule
         return false;
     }
 
-    public function fix(Fixer $fixer, File $file): void {}
+    public function fix(Fixer $fixer, File $file): void
+    {
+    }
 }

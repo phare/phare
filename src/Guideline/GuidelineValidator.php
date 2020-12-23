@@ -27,20 +27,22 @@ class GuidelineValidator
         }
 
         if (isset($values[GuidelinePreset::EXTENDS])) {
-           self::validateExtends($values[GuidelinePreset::EXTENDS]);
+            self::validateExtends($values[GuidelinePreset::EXTENDS]);
         }
 
         if (isset($values[GuidelinePreset::SCOPES])) {
-           self::validateArrayOfScopes($values[GuidelinePreset::SCOPES]);
+            self::validateArrayOfScopes($values[GuidelinePreset::SCOPES]);
         }
     }
 
     /**
+     * @param mixed $extends
+     *
      * @throws GuidelineConfigurationException
      */
     private static function validateExtends($extends): void
     {
-        if (!is_array($extends) && $extends !== null) {
+        if (!is_array($extends)) {
             throw new GuidelineConfigurationException(
                 'The "extends" property of your guideline file should be of type array or null.'
                 . 'Found: ' . gettype($extends)
@@ -49,11 +51,13 @@ class GuidelineValidator
     }
 
     /**
+     * @param mixed $scopes
+     *
      * @throws GuidelineConfigurationException
      */
     private static function validateArrayOfScopes($scopes): void
     {
-        if (!is_array($scopes) && $scopes !== null) {
+        if (!is_array($scopes)) {
             throw new GuidelineConfigurationException(
                 'The "scopes" property of your guideline file should be of type array or null.'
                 . 'Found: ' . gettype($scopes)

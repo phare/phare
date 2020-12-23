@@ -32,7 +32,7 @@ class GuidelineValidatorTest extends TestCase
         GuidelineValidator::validate(['wrong' => []]);
     }
 
-     public function test_it_throw_exception_if_wrong_extends_type(): void
+    public function test_it_throw_exception_if_wrong_extends_type(): void
     {
         $this->expectException(GuidelineConfigurationException::class);
 
@@ -55,5 +55,4 @@ class GuidelineValidatorTest extends TestCase
             '*' => ''
         ]]);
     }
-
 }

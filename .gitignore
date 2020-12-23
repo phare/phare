@@ -6,3 +6,5 @@ phare.php
 .phpunit.cache
 
 .phpunit.result.cache
+cghooks.lock
+

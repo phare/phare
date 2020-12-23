@@ -48,8 +48,15 @@ class RunCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $report = ReportFactory::make($input, $output, $input->getOption('report-format'));
-        $guideline = GuidelineFactory::make($input->getOption('configuration-file'));
+        /** @var string $reportFormat */
+        $reportFormat = $input->getOption('report-format');
+        /** @var string $reportFile */
+        $reportFile = $input->getOption('report-file');
+        /** @var string $configurationFile */
+        $configurationFile = $input->getOption('configuration-file');
+
+        $report = ReportFactory::make($input, $output, $reportFormat);
+        $guideline = GuidelineFactory::make($configurationFile);
 
         $report->start();
 
@@ -59,7 +66,7 @@ class RunCommand extends Command
             );
         }
 
-        $report->end($input->getOption('report-file'));
+        $report->end($reportFile);
 
         return $report->successful() ? Command::SUCCESS : Command::FAILURE;
     }

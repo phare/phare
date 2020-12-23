@@ -29,24 +29,26 @@ class ScopeValidator
         }
 
         if (isset($values[ScopePreset::PATHS])) {
-           self::validateArrayOfPaths($values[ScopePreset::PATHS]);
+            self::validateArrayOfPaths($values[ScopePreset::PATHS]);
         }
 
         if (isset($values[ScopePreset::EXCLUDES])) {
-           self::validateArrayOfPaths($values[ScopePreset::EXCLUDES]);
+            self::validateArrayOfPaths($values[ScopePreset::EXCLUDES]);
         }
 
         if (isset($values[ScopePreset::RULES])) {
-           self::validateArrayOfRules($values[ScopePreset::RULES]);
+            self::validateArrayOfRules($values[ScopePreset::RULES]);
         }
     }
 
     /**
+     * @param mixed $paths
+     *
      * @throws ScopeConfigurationException
      */
     private static function validateArrayOfPaths($paths): void
     {
-        if (!is_array($paths) && $paths !== null) {
+        if (!is_array($paths)) {
             throw new ScopeConfigurationException(
                 'The "paths" property of your guideline file should be of type array or null.'
                 . 'Found: ' . gettype($paths)
@@ -64,11 +66,13 @@ class ScopeValidator
     }
 
     /**
+     * @param mixed $rules
+     *
      * @throws ScopeConfigurationException
      */
     private static function validateArrayOfRules($rules): void
     {
-        if (!is_array($rules) && $rules !== null) {
+        if (!is_array($rules)) {
             throw new ScopeConfigurationException(
                 'The "rules" property of your guideline file should be of type array or null.'
                 . 'Found: ' . gettype($rules)

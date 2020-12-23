@@ -36,7 +36,6 @@ final class FileRegexTest extends TestCase
         ];
 
         foreach ($tests as $test) {
-
             self::assertEquals(
                 $test[0],
                 (new FileRegex($test[1]))->assert(

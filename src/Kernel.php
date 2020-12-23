@@ -18,14 +18,14 @@ class Kernel
 
     public static function bootstrap(): void
     {
-        (new Provider)->register();
+        (new Provider())->register();
 
-        (new Application)->run();
+        (new Application())->run();
     }
 
     public static function getProjectRoot(): string
     {
-        return getcwd();
+        return getcwd() . DIRECTORY_SEPARATOR;
     }
 
     public static function getSourceRoot(): string

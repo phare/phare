@@ -10,7 +10,7 @@ class PresetTest extends TestCase
     /**
      * @doesNotPerformAssertions
      */
-    public function test_it_has_valid_presets():void
+    public function test_it_has_valid_presets(): void
     {
         $path = __DIR__ . '/../../src/Guideline/preset/';
 

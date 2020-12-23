@@ -2,7 +2,10 @@
 
 namespace Phare\Scope;
 
+use Phare\Exception\ScopeDirectoryNotFoundException;
+use Phare\Kernel;
 use Phare\Preset\Scope as ScopePreset;
+use Symfony\Component\Finder\Exception\DirectoryNotFoundException;
 use Symfony\Component\Finder\Finder;
 
 class ScopeFactory
@@ -11,25 +14,36 @@ class ScopeFactory
     {
         ScopeValidator::validate($values);
 
-        $scope = new Scope(
-            $name,
-            $values[ScopePreset::PATHS] ?? [],
-            $values[ScopePreset::EXCLUDES] ?? [],
-            $values[ScopePreset::RULES] ?? []
-        );
+        $paths = self::makePathsAbsolute($values[ScopePreset::PATHS] ?? [Kernel::getProjectRoot()]);
+        $excludes = $values[ScopePreset::EXCLUDES] ?? [];
 
-        if (empty($scope->getPaths())) {
-            return $scope;
+        $scope = new Scope($name, $paths, $excludes, $values[ScopePreset::RULES] ?? []);
+
+        try {
+            $finder = (new Finder())
+                ->ignoreUnreadableDirs()
+                ->exclude($scope->getExcludes())
+                ->files()
+                ->in($scope->getPaths());
+        } catch (DirectoryNotFoundException $exception) {
+            throw new ScopeDirectoryNotFoundException($exception->getMessage());
         }
 
-        $scope->setFinder(
-            (new Finder())
-                ->ignoreUnreadableDirs()
-                ->notPath($scope->getExcludes())
-                ->files()
-                ->in($scope->getPaths())
-        );
+        $scope->setFinder($finder);
 
-       return $scope;
+        return $scope;
+    }
+
+    private static function makePathsAbsolute(array $paths): array
+    {
+        foreach ($paths as &$path) {
+            if (strpos($path, DIRECTORY_SEPARATOR) !== 0) {
+                $path = Kernel::getProjectRoot() . $path;
+            }
+
+            $path = rtrim($path, '/') . '/';
+        } unset($path);
+
+        return $paths;
     }
 }

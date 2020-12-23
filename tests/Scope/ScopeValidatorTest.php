@@ -33,7 +33,7 @@ class ScopeValidatorTest extends TestCase
         ScopeValidator::validate(['wrong' => '']);
     }
 
-     public function test_it_throw_exception_if_wrong_paths_type(): void
+    public function test_it_throw_exception_if_wrong_paths_type(): void
     {
         $this->expectException(ScopeConfigurationException::class);
 
@@ -61,7 +61,7 @@ class ScopeValidatorTest extends TestCase
         ScopeValidator::validate([ScopePreset::EXCLUDES => [[]]]);
     }
 
-       public function test_it_throw_exception_if_wrong_rules_type(): void
+    public function test_it_throw_exception_if_wrong_rules_type(): void
     {
         $this->expectException(ScopeConfigurationException::class);
 

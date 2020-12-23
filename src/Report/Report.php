@@ -99,12 +99,12 @@ class Report
 
     private function outputReport(string $reportFile = null): void
     {
-         if ($reportFile) {
-             file_put_contents($reportFile, $this->formatter->output($this->assertions));
-         } elseif (!$this->io->isQuiet() && !$this->successful()) {
-             $this->io->newLine();
-             $this->io->write($this->formatter->output($this->assertions));
-         }
+        if ($reportFile) {
+            file_put_contents($reportFile, $this->formatter->output($this->assertions));
+        } elseif (!$this->io->isQuiet() && !$this->successful()) {
+            $this->io->newLine();
+            $this->io->write($this->formatter->output($this->assertions));
+        }
     }
 
     private function outputStatistics(): void

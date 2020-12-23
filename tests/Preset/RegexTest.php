@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Phare\Tests\Preset;
 
 use Phare\Preset\Regex;
