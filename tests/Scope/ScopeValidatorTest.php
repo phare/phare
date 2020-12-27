@@ -3,13 +3,19 @@
 namespace Phare\Tests\Scope;
 
 use Phare\Exception\ScopeConfigurationException;
+use Phare\Kernel;
 use Phare\Preset\Scope as ScopePreset;
 use Phare\Rule\FileExtension;
 use Phare\Scope\ScopeValidator;
-use PHPUnit\Framework\TestCase;
+use Phare\Tests\TestCase;
 
 class ScopeValidatorTest extends TestCase
 {
+    public function scopeValidator(): ScopeValidator
+    {
+        return Kernel::container()->get(ScopeValidator::class);
+    }
+
     /**
      * @doesNotPerformAssertions
      */
@@ -19,7 +25,7 @@ class ScopeValidatorTest extends TestCase
         $excludes = [__DIR__ . '/../stubs/excludes'];
         $rules = [new FileExtension(['php'])];
 
-        ScopeValidator::validate([
+        $this->scopeValidator()->validate([
             ScopePreset::PATHS => $paths,
             ScopePreset::EXCLUDES => $excludes,
             ScopePreset::RULES => $rules
@@ -30,48 +36,48 @@ class ScopeValidatorTest extends TestCase
     {
         $this->expectException(ScopeConfigurationException::class);
 
-        ScopeValidator::validate(['wrong' => '']);
+        $this->scopeValidator()->validate(['wrong' => '']);
     }
 
     public function test_it_throw_exception_if_wrong_paths_type(): void
     {
         $this->expectException(ScopeConfigurationException::class);
 
-        ScopeValidator::validate([ScopePreset::PATHS => 'wrong']);
+        $this->scopeValidator()->validate([ScopePreset::PATHS => 'wrong']);
     }
 
     public function test_it_throw_exception_if_wrong_paths_values(): void
     {
         $this->expectException(ScopeConfigurationException::class);
 
-        ScopeValidator::validate([ScopePreset::PATHS => [[]]]);
+        $this->scopeValidator()->validate([ScopePreset::PATHS => [[]]]);
     }
 
     public function test_it_throw_exception_if_wrong_excludes_type(): void
     {
         $this->expectException(ScopeConfigurationException::class);
 
-        ScopeValidator::validate([ScopePreset::EXCLUDES => 'wrong']);
+        $this->scopeValidator()->validate([ScopePreset::EXCLUDES => 'wrong']);
     }
 
     public function test_it_throw_exception_if_wrong_excludes_values(): void
     {
         $this->expectException(ScopeConfigurationException::class);
 
-        ScopeValidator::validate([ScopePreset::EXCLUDES => [[]]]);
+        $this->scopeValidator()->validate([ScopePreset::EXCLUDES => [[]]]);
     }
 
     public function test_it_throw_exception_if_wrong_rules_type(): void
     {
         $this->expectException(ScopeConfigurationException::class);
 
-        ScopeValidator::validate([ScopePreset::RULES => 'wrong']);
+        $this->scopeValidator()->validate([ScopePreset::RULES => 'wrong']);
     }
 
     public function test_it_throw_exception_if_wrong_rules_values(): void
     {
         $this->expectException(ScopeConfigurationException::class);
 
-        ScopeValidator::validate([ScopePreset::RULES => [[]]]);
+        $this->scopeValidator()->validate([ScopePreset::RULES => [[]]]);
     }
 }

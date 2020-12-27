@@ -4,8 +4,8 @@ namespace Phare\Tests\Rule;
 
 use Phare\Exception\RuleArgumentException;
 use Phare\Rule\FileExtension;
+use Phare\Tests\TestCase;
 use Phare\Tests\Traits\TestFiles;
-use PHPUnit\Framework\TestCase;
 
 final class FileExtensionTest extends TestCase
 {

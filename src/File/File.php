@@ -22,14 +22,19 @@ class File
         return pathinfo($filename, \PATHINFO_FILENAME);
     }
 
-    public function replace(string $fileName): void
+    public function getExtension(): string
     {
-        $this->file = new SplFileInfo($fileName);
+        return $this->file->getExtension();
     }
 
     public function getPath(): string
     {
         return $this->file->getPath();
+    }
+
+    public function getWorkingPath(): string
+    {
+        return str_replace(Kernel::getProjectRoot(), '', $this->getRealPath());
     }
 
     /**
@@ -46,13 +51,8 @@ class File
         return $realPath;
     }
 
-    public function getExtension(): string
+    public function replace(string $fileName): void
     {
-        return $this->file->getExtension();
-    }
-
-    public function getWorkingPath(): string
-    {
-        return str_replace(Kernel::getProjectRoot(), '', $this->getRealPath());
+        $this->file = new SplFileInfo($fileName);
     }
 }

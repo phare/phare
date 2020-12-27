@@ -8,18 +8,22 @@ use Phare\Preset\Scope as ScopePreset;
 use Phare\Rule\FileExtension;
 use Phare\Scope\Scope;
 use Phare\Scope\ScopeFactory;
-use PHPUnit\Framework\TestCase;
-use Symfony\Component\Finder\Finder;
+use Phare\Tests\TestCase;
 
 class ScopeFactoryTest extends TestCase
 {
+    public function scopeFactory(): ScopeFactory
+    {
+        return Kernel::container()->get(ScopeFactory::class);
+    }
+
     public function test_it_make_scope(): void
     {
         $paths = [__DIR__ . '/../stubs/'];
         $excludes = [__DIR__ . '/../stubs/excludes/'];
         $rules = [new FileExtension(['php'])];
 
-        $scope = ScopeFactory::make('test', [
+        $scope = $this->scopeFactory()->make('test', [
             ScopePreset::PATHS => $paths,
             ScopePreset::EXCLUDES => $excludes,
             ScopePreset::RULES => $rules
@@ -32,9 +36,47 @@ class ScopeFactoryTest extends TestCase
         self::assertNotNull($scope->getFinder());
     }
 
+    public function test_it_make_scope_with_no_trailing_slash(): void
+    {
+        $paths = [__DIR__ . '/../stubs'];
+        $excludes = [__DIR__ . '/../stubs/excludes'];
+        $rules = [new FileExtension(['php'])];
+
+        $scope = $this->scopeFactory()->make('test', [
+            ScopePreset::PATHS => $paths,
+            ScopePreset::EXCLUDES => $excludes,
+            ScopePreset::RULES => $rules
+        ]);
+
+        self::assertEquals('test', $scope->getName());
+        self::assertEquals([__DIR__ . '/../stubs/'], $scope->getPaths());
+        self::assertEquals($excludes, $scope->getExcludes());
+        self::assertEquals($rules, $scope->getRules());
+        self::assertNotNull($scope->getFinder());
+    }
+
+    public function test_it_make_scope_with_relative_paths(): void
+    {
+        $paths = ['tests/stubs'];
+        $excludes = ['tests/stubs/excludes'];
+        $rules = [new FileExtension(['php'])];
+
+        $scope = $this->scopeFactory()->make('test', [
+            ScopePreset::PATHS => $paths,
+            ScopePreset::EXCLUDES => $excludes,
+            ScopePreset::RULES => $rules
+        ]);
+
+        self::assertEquals('test', $scope->getName());
+        self::assertEquals([Kernel::getProjectRoot() . 'tests/stubs/'], $scope->getPaths());
+        self::assertEquals($excludes, $scope->getExcludes());
+        self::assertEquals($rules, $scope->getRules());
+        self::assertNotNull($scope->getFinder());
+    }
+
     public function test_it_make_scope_default(): void
     {
-        $scope = ScopeFactory::make('test', []);
+        $scope = $this->scopeFactory()->make('test', []);
 
         self::assertEquals('test', $scope->getName());
         self::assertEquals([Kernel::getProjectRoot()], $scope->getPaths());
@@ -47,7 +89,7 @@ class ScopeFactoryTest extends TestCase
     {
         $this->expectException(ScopeDirectoryNotFoundException::class);
 
-        ScopeFactory::make('test', [
+        $this->scopeFactory()->make('test', [
             ScopePreset::PATHS => ['/wrong']
         ]);
     }

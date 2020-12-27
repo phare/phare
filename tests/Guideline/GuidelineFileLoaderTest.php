@@ -3,7 +3,7 @@
 namespace Phare\Tests\Guideline;
 
 use Phare\Guideline\GuidelineFileLoader;
-use PHPUnit\Framework\TestCase;
+use Phare\Tests\TestCase;
 
 class GuidelineFileLoaderTest extends TestCase
 {

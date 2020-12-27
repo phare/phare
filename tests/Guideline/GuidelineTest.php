@@ -5,8 +5,8 @@ namespace Phare\Tests\Guideline;
 use Phare\Assertion\Assertion;
 use Phare\Guideline\Guideline;
 use Phare\Rule\FileExtension;
+use Phare\Tests\TestCase;
 use Phare\Tests\Traits\TestFiles;
-use PHPUnit\Framework\TestCase;
 
 class GuidelineTest extends TestCase
 {

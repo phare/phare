@@ -9,7 +9,7 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 
 class ReportFactory
 {
-    public static function make(InputInterface $input, OutputInterface $output, string $format): Report
+    public function make(InputInterface $input, OutputInterface $output, string $format): Report
     {
         $formats = Report::FORMATS;
 

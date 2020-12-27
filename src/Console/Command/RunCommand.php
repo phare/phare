@@ -11,7 +11,19 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class RunCommand extends Command
 {
-    protected static $defaultName = 'run';
+    public const NAME = 'run';
+
+    private ReportFactory $reportFactory;
+
+    private GuidelineFactory $guidelineFactory;
+
+    public function __construct(ReportFactory $reportFactory, GuidelineFactory $guidelineFactory)
+    {
+        parent::__construct(self::NAME);
+
+        $this->reportFactory = $reportFactory;
+        $this->guidelineFactory = $guidelineFactory;
+    }
 
     protected function configure(): void
     {
@@ -55,8 +67,8 @@ class RunCommand extends Command
         /** @var string $configurationFile */
         $configurationFile = $input->getOption('configuration-file');
 
-        $report = ReportFactory::make($input, $output, $reportFormat);
-        $guideline = GuidelineFactory::make($configurationFile);
+        $report = $this->reportFactory->make($input, $output, $reportFormat);
+        $guideline = $this->guidelineFactory->make($configurationFile);
 
         $report->start();
 

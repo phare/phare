@@ -17,7 +17,7 @@ class Scope
 
     protected Finder $finder;
 
-    public function __construct(string $name, array $paths = ['*'], array $excludes = [], array $rules = [])
+    public function __construct(string $name, array $paths, array $excludes = [], array $rules = [])
     {
         $this->name = $name;
         $this->paths = $paths;

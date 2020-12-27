@@ -6,7 +6,7 @@ use Phare\Kernel;
 
 class GuidelineFileLoader
 {
-    public static function load(string $filePath): array
+    public function load(string $filePath): array
     {
         $guidelineFilePath = Kernel::getProjectRoot() . $filePath;
 

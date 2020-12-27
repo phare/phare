@@ -24,7 +24,7 @@ class Report
     /**
      * @var Assertion[]
      */
-    private array $assertions;
+    private array $assertions = [];
 
     private SymfonyStyle $io;
 
@@ -109,9 +109,6 @@ class Report
 
     private function outputStatistics(): void
     {
-        $time = round(microtime(true) - PHARE_START, 3);
-        $memory = round(memory_get_peak_usage() / 1024 / 1024);
-
         $this->io->newLine();
 
         $this->io->write($this->successful() ? '<bg=green;fg=black>OK (' : '<bg=red;fg=black>FAILURE (');
@@ -123,8 +120,16 @@ class Report
         }
 
         $this->io->write(')</>');
+        $this->io->newLine();
 
-        $this->io->newLine(2);
+        if (!defined('PHARE_START')) {
+            return;
+        }
+
+        $time = round(microtime(true) - PHARE_START, 3);
+        $memory = round(memory_get_peak_usage() / 1024 / 1024);
+
+        $this->io->newLine();
         $this->io->writeln("Time: {$time}s, Memory: {$memory}MB");
     }
 
@@ -135,5 +140,15 @@ class Report
         }
 
         $this->assertions[] = $assertion;
+    }
+
+    public function getFormatter(): Formatter
+    {
+        return $this->formatter;
+    }
+
+    public function getStatistics(): array
+    {
+        return $this->statistics;
     }
 }

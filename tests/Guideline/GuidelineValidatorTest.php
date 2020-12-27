@@ -4,19 +4,24 @@ namespace Phare\Tests\Guideline;
 
 use Phare\Exception\GuidelineConfigurationException;
 use Phare\Guideline\GuidelineValidator;
+use Phare\Kernel;
 use Phare\Preset\Guideline as GuidelinePreset;
 use Phare\Preset\Scope as ScopePreset;
-use PHPUnit\Framework\TestCase;
+use Phare\Tests\TestCase;
 
 class GuidelineValidatorTest extends TestCase
 {
+    public function guidelineValidator(): GuidelineValidator
+    {
+        return Kernel::container()->get(GuidelineValidator::class);
+    }
+
     /**
      * @doesNotPerformAssertions
      */
     public function test_it_validate_guideline(): void
     {
-        GuidelineValidator::validate([
-            GuidelinePreset::EXTENDS => GuidelinePreset::default(),
+        $this->guidelineValidator()->validate([
             GuidelinePreset::SCOPES => [
                 '*' => [
                     ScopePreset::RULES => [],
@@ -29,14 +34,14 @@ class GuidelineValidatorTest extends TestCase
     {
         $this->expectException(GuidelineConfigurationException::class);
 
-        GuidelineValidator::validate(['wrong' => []]);
+        $this->guidelineValidator()->validate(['wrong' => []]);
     }
 
     public function test_it_throw_exception_if_wrong_extends_type(): void
     {
         $this->expectException(GuidelineConfigurationException::class);
 
-        GuidelineValidator::validate([GuidelinePreset::EXTENDS => 'wrong']);
+        $this->guidelineValidator()->validate([GuidelinePreset::EXTENDS => 'wrong']);
     }
 
 
@@ -44,14 +49,14 @@ class GuidelineValidatorTest extends TestCase
     {
         $this->expectException(GuidelineConfigurationException::class);
 
-        GuidelineValidator::validate([GuidelinePreset::SCOPES => 'wrong']);
+        $this->guidelineValidator()->validate([GuidelinePreset::SCOPES => 'wrong']);
     }
 
     public function test_it_throw_exception_if_wrong_scopes_sub_type(): void
     {
         $this->expectException(GuidelineConfigurationException::class);
 
-        GuidelineValidator::validate([GuidelinePreset::SCOPES => [
+        $this->guidelineValidator()->validate([GuidelinePreset::SCOPES => [
             '*' => ''
         ]]);
     }

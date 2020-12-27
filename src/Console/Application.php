@@ -2,6 +2,7 @@
 
 namespace Phare\Console;
 
+use League\Container\Container;
 use Phare\Console\Command\InstallCommand;
 use Phare\Console\Command\RunCommand;
 use Phare\Kernel;
@@ -9,15 +10,21 @@ use Symfony\Component\Console\Application as BaseApplication;
 
 class Application extends BaseApplication
 {
-    public function __construct()
+    public function __construct(Container $container)
     {
         parent::__construct('Phare', Kernel::VERSION);
 
-        $run = new RunCommand();
+        $commands = [
+            RunCommand::class,
+            InstallCommand::class
+        ];
 
-        $this->add($run);
-        $this->add(new InstallCommand());
+        foreach ($commands as $command) {
+            $this->add(
+                $container->get($command)
+            );
+        }
 
-        $this->setDefaultCommand($run->getName() ?? 'run');
+        $this->setDefaultCommand(RunCommand::NAME);
     }
 }

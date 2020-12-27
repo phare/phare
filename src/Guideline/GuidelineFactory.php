@@ -6,22 +6,46 @@ use Phare\Assertion\AssertionFactory;
 use Phare\Preset\Guideline as GuidelinePreset;
 use Phare\Scope\ScopeFactory;
 
-abstract class GuidelineFactory
+class GuidelineFactory
 {
-    public static function make(string $filePath): Guideline
+    protected GuidelineFileLoader $guidelineFileLoader;
+
+    protected GuidelineValidator $guidelineValidator;
+
+    protected GuidelineParser $guidelineParser;
+
+    protected ScopeFactory $scopeFactory;
+
+    protected AssertionFactory $assertionFactory;
+
+    public function __construct(
+        GuidelineFileLoader $guidelineFileLoader,
+        GuidelineValidator $guidelineValidator,
+        GuidelineParser $guidelineParser,
+        ScopeFactory $scopeFactory,
+        AssertionFactory $assertionFactory
+    ) {
+        $this->guidelineFileLoader = $guidelineFileLoader;
+        $this->guidelineValidator = $guidelineValidator;
+        $this->guidelineParser = $guidelineParser;
+        $this->scopeFactory = $scopeFactory;
+        $this->assertionFactory = $assertionFactory;
+    }
+
+    public function make(string $filePath): Guideline
     {
-        $values = GuidelineFileLoader::load($filePath);
+        $values = $this->guidelineFileLoader->load($filePath);
 
-        GuidelineValidator::validate($values);
+        $this->guidelineValidator->validate($values);
 
-        $values = GuidelineParser::parse($values);
+        $values = $this->guidelineParser->parse($values);
 
         $guideline = new Guideline();
 
         foreach ($values[GuidelinePreset::SCOPES] as $name => $scopeValues) {
-            $scope = ScopeFactory::make($name, $scopeValues);
+            $scope = $this->scopeFactory->make($name, $scopeValues);
 
-            foreach (AssertionFactory::make($scope) as $assertion) {
+            foreach ($this->assertionFactory->make($scope) as $assertion) {
                 $guideline->addAssertion($assertion);
             }
         }

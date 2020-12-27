@@ -8,7 +8,7 @@ use Phare\Rule\Rule;
 
 class ScopeValidator
 {
-    private static array $authorizedKeys = [
+    private array $authorizedKeys = [
         ScopePreset::PATHS,
         ScopePreset::EXCLUDES,
         ScopePreset::RULES,
@@ -17,27 +17,27 @@ class ScopeValidator
     /**
      * @throws ScopeConfigurationException
      */
-    public static function validate(array $values): void
+    public function validate(array $values): void
     {
-        $difference = array_diff(array_keys($values), self::$authorizedKeys);
+        $difference = array_diff(array_keys($values), $this->authorizedKeys);
 
         if (!empty($difference)) {
             throw new ScopeConfigurationException(
                 'A scope array can only contain the following keys: '
-                . implode(', ', self::$authorizedKeys) . '. Found: ' . implode(', ', array_keys($values))
+                . implode(', ', $this->authorizedKeys) . '. Found: ' . implode(', ', array_keys($values))
             );
         }
 
         if (isset($values[ScopePreset::PATHS])) {
-            self::validateArrayOfPaths($values[ScopePreset::PATHS]);
+            $this->validateArrayOfPaths($values[ScopePreset::PATHS]);
         }
 
         if (isset($values[ScopePreset::EXCLUDES])) {
-            self::validateArrayOfPaths($values[ScopePreset::EXCLUDES]);
+            $this->validateArrayOfPaths($values[ScopePreset::EXCLUDES]);
         }
 
         if (isset($values[ScopePreset::RULES])) {
-            self::validateArrayOfRules($values[ScopePreset::RULES]);
+            $this->validateArrayOfRules($values[ScopePreset::RULES]);
         }
     }
 
@@ -46,7 +46,7 @@ class ScopeValidator
      *
      * @throws ScopeConfigurationException
      */
-    private static function validateArrayOfPaths($paths): void
+    private function validateArrayOfPaths($paths): void
     {
         if (!is_array($paths)) {
             throw new ScopeConfigurationException(
@@ -70,7 +70,7 @@ class ScopeValidator
      *
      * @throws ScopeConfigurationException
      */
-    private static function validateArrayOfRules($rules): void
+    private function validateArrayOfRules($rules): void
     {
         if (!is_array($rules)) {
             throw new ScopeConfigurationException(

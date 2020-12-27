@@ -7,7 +7,7 @@ use Phare\Preset\Guideline as GuidelinePreset;
 
 class GuidelineValidator
 {
-    private static array $authorizedKeys = [
+    private array $authorizedKeys = [
         GuidelinePreset::EXTENDS,
         GuidelinePreset::SCOPES
     ];
@@ -15,24 +15,26 @@ class GuidelineValidator
     /**
      * @throws GuidelineConfigurationException
      */
-    public static function validate(array $values): void
+    public function validate(array $values): bool
     {
-        $difference = array_diff(array_keys($values), self::$authorizedKeys);
+        $difference = array_diff(array_keys($values), $this->authorizedKeys);
 
         if (!empty($difference)) {
             throw new GuidelineConfigurationException(
                 'A guideline array can only contain the following keys: '
-                . implode(', ', self::$authorizedKeys) . '. Found: ' . implode(', ', array_keys($values))
+                . implode(', ', $this->authorizedKeys) . '. Found: ' . implode(', ', array_keys($values))
             );
         }
 
         if (isset($values[GuidelinePreset::EXTENDS])) {
-            self::validateExtends($values[GuidelinePreset::EXTENDS]);
+            $this->validateExtends($values[GuidelinePreset::EXTENDS]);
         }
 
         if (isset($values[GuidelinePreset::SCOPES])) {
-            self::validateArrayOfScopes($values[GuidelinePreset::SCOPES]);
+            $this->validateArrayOfScopes($values[GuidelinePreset::SCOPES]);
         }
+
+        return true;
     }
 
     /**
@@ -40,7 +42,7 @@ class GuidelineValidator
      *
      * @throws GuidelineConfigurationException
      */
-    private static function validateExtends($extends): void
+    private function validateExtends($extends): void
     {
         if (!is_array($extends)) {
             throw new GuidelineConfigurationException(
@@ -55,7 +57,7 @@ class GuidelineValidator
      *
      * @throws GuidelineConfigurationException
      */
-    private static function validateArrayOfScopes($scopes): void
+    private function validateArrayOfScopes($scopes): void
     {
         if (!is_array($scopes)) {
             throw new GuidelineConfigurationException(

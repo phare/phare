@@ -3,7 +3,7 @@
 namespace Phare\Tests\Preset;
 
 use Phare\Preset\Regex;
-use PHPUnit\Framework\TestCase;
+use Phare\Tests\TestCase;
 
 class RegexTest extends TestCase
 {

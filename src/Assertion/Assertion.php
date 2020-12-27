@@ -11,6 +11,7 @@ class Assertion
     public const STATUS_SUCCESS = 'success';
     public const STATUS_FIXED = 'fixed';
     public const STATUS_ERROR = 'error';
+    public const STATUS_NOT_PERFORMED = 'not_performed';
 
     private string $scope;
 
@@ -18,7 +19,7 @@ class Assertion
 
     private Rule $rule;
 
-    private string $status = self::STATUS_SUCCESS;
+    private string $status = self::STATUS_NOT_PERFORMED;
 
     public function __construct(string $scope, File $file, Rule $rule)
     {
@@ -29,11 +30,12 @@ class Assertion
 
     public function perform(bool $shouldFix = true): self
     {
+        $this->status = self::STATUS_ERROR;
+
         if ($this->rule->assert($this->file)) {
+            $this->status = self::STATUS_SUCCESS;
             return $this;
         }
-
-        $this->status = self::STATUS_ERROR;
 
         if ($shouldFix && $this->rule->fixable()) {
             $this->rule->fix(new Fixer(), $this->file);

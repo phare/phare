@@ -3,7 +3,7 @@
 namespace Phare\Tests\Preset;
 
 use Phare\Preset\Guideline;
-use PHPUnit\Framework\TestCase;
+use Phare\Tests\TestCase;
 
 class GuidelineTest extends TestCase
 {

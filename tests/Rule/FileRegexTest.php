@@ -4,10 +4,10 @@ namespace Phare\Tests\Rule;
 
 use Phare\Preset\Regex;
 use Phare\Rule\FileRegex;
+use Phare\Tests\TestCase;
 use Phare\Tests\Traits\FixIssues;
 use Phare\Tests\Traits\TestFiles;
 use PHPUnit\Framework\MockObject\MockObject;
-use PHPUnit\Framework\TestCase;
 
 final class FileRegexTest extends TestCase
 {

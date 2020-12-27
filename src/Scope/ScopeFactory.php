@@ -3,21 +3,34 @@
 namespace Phare\Scope;
 
 use Phare\Exception\ScopeDirectoryNotFoundException;
-use Phare\Kernel;
 use Phare\Preset\Scope as ScopePreset;
 use Symfony\Component\Finder\Exception\DirectoryNotFoundException;
 use Symfony\Component\Finder\Finder;
 
 class ScopeFactory
 {
-    public static function make(string $name, array $values): Scope
+    private ScopeValidator $scopeValidator;
+
+    private ScopeParser $scopeParser;
+
+    public function __construct(ScopeValidator $scopeValidator, ScopeParser $scopeParser)
     {
-        ScopeValidator::validate($values);
+        $this->scopeValidator = $scopeValidator;
+        $this->scopeParser = $scopeParser;
+    }
 
-        $paths = self::makePathsAbsolute($values[ScopePreset::PATHS] ?? [Kernel::getProjectRoot()]);
-        $excludes = $values[ScopePreset::EXCLUDES] ?? [];
+    public function make(string $name, array $values): Scope
+    {
+        $this->scopeValidator->validate($values);
 
-        $scope = new Scope($name, $paths, $excludes, $values[ScopePreset::RULES] ?? []);
+        $values = $this->scopeParser->parse($values);
+
+        $scope = new Scope(
+            $name,
+            $values[ScopePreset::PATHS],
+            $values[ScopePreset::EXCLUDES],
+            $values[ScopePreset::RULES]
+        );
 
         try {
             $finder = (new Finder())
@@ -32,18 +45,5 @@ class ScopeFactory
         $scope->setFinder($finder);
 
         return $scope;
-    }
-
-    private static function makePathsAbsolute(array $paths): array
-    {
-        foreach ($paths as &$path) {
-            if (strpos($path, DIRECTORY_SEPARATOR) !== 0) {
-                $path = Kernel::getProjectRoot() . $path;
-            }
-
-            $path = rtrim($path, '/') . '/';
-        } unset($path);
-
-        return $paths;
     }
 }

@@ -3,7 +3,7 @@
 namespace Phare\Tests\Scope;
 
 use Phare\Scope\Scope;
-use PHPUnit\Framework\TestCase;
+use Phare\Tests\TestCase;
 use Symfony\Component\Finder\Finder;
 
 class ScopeTest extends TestCase
