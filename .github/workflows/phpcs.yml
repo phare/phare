@@ -1,0 +1,14 @@
+name: PHPCS Check
+
+on: [ push, pull_request ]
+
+jobs:
+  phpcs:
+      name: PHPCS Check
+      runs-on: ubuntu-latest
+      steps:
+        - name: "Checkout"
+          uses: actions/checkout@v2
+
+        - name: PHPCS check
+          uses: chekalsky/phpcs-action@v1
