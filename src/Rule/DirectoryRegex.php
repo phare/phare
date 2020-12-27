@@ -7,8 +7,11 @@ use Phare\Fixer\Fixer;
 
 class DirectoryRegex extends Rule
 {
+    private string $regex;
+
     public function __construct(string $regex)
     {
+        $this->regex = $regex;
     }
 
     public function errorMessage(): string

@@ -7,8 +7,11 @@ use Phare\Fixer\Fixer;
 
 class FileSuffix extends Rule
 {
+    private string $suffix;
+
     public function __construct(string $suffix)
     {
+        $this->suffix = $suffix;
     }
 
     public function errorMessage(): string

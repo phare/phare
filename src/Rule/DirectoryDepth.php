@@ -6,8 +6,13 @@ use Phare\File\File;
 
 class DirectoryDepth extends Rule
 {
+    private ?int $min;
+    private ?int $max;
+
     public function __construct(int $min = null, int $max = null)
     {
+        $this->min = $min;
+        $this->max = $max;
     }
 
     public function errorMessage(): string
