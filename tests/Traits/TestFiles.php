@@ -2,6 +2,7 @@
 
 namespace Phare\Tests\Traits;
 
+use Exception;
 use Phare\File\File;
 
 trait TestFiles
@@ -14,5 +15,18 @@ trait TestFiles
     public function stubFile(string $fileName): File
     {
         return new File($this->stub($fileName));
+    }
+
+    public function createStubFile(string $filename): void
+    {
+        file_put_contents($this->stub($filename), '');
+    }
+
+    public function deleteStubFile(string $filename): void
+    {
+        try {
+            unlink($this->stub($filename));
+        } catch (Exception $exception) {
+        }
     }
 }

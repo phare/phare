@@ -13,8 +13,14 @@
         <testsuite name="Assertion">
             <directory suffix="Test.php">tests/Assertion</directory>
         </testsuite>
+        <testsuite name="Console">
+            <directory suffix="Test.php">tests/Console</directory>
+        </testsuite>
         <testsuite name="File">
             <directory suffix="Test.php">tests/File</directory>
+        </testsuite>
+        <testsuite name="Fixer">
+            <directory suffix="Test.php">tests/Fixer</directory>
         </testsuite>
         <testsuite name="Guideline">
             <directory suffix="Test.php">tests/Guideline</directory>

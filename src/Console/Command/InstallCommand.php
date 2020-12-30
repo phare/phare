@@ -95,6 +95,7 @@ class InstallCommand extends Command
             $this->allowedPresets(),
             'default'
         );
+
         $question->setErrorMessage('Preset %s is invalid.');
 
         return $this->getHelper('question')->ask($input, $output, $question);
