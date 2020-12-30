@@ -12,7 +12,7 @@ class GuidelineTest extends TestCase
 {
     use TestFiles;
 
-    public function test_it_add_assertion()
+    public function test_it_add_assertion(): void
     {
         $guideline = new Guideline();
         $assertion = new Assertion(

@@ -7,7 +7,7 @@ use Phare\Tests\TestCase;
 
 class GuidelineTest extends TestCase
 {
-    public function test_it_load_guidelines()
+    public function test_it_load_guidelines(): void
     {
         $path = __DIR__ . '/../../src/Guideline/preset/';
 
