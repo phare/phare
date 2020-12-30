@@ -2,9 +2,7 @@
 
 namespace Phare\Tests\Fixer;
 
-use Phare\File\File;
 use Phare\Fixer\FileFixer;
-use Phare\Fixer\Fixer;
 use Phare\Kernel;
 use Phare\Tests\TestCase;
 use Phare\Tests\Traits\TestFiles;

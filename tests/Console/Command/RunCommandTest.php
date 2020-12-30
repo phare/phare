@@ -2,14 +2,11 @@
 
 namespace Phare\Tests\Console\Command;
 
-use Closure;
 use Phare\Assertion\Assertion;
 use Phare\Console\Command\RunCommand;
-use Phare\File\File;
 use Phare\Guideline\Guideline;
 use Phare\Guideline\GuidelineFactory;
 use Phare\Report\ReportFactory;
-use Phare\Rule\FileExtension;
 use Phare\Tests\TestCase;
 use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Tester\CommandTester;
