@@ -23,9 +23,13 @@ class InstallCommandTest extends TestCase
     {
         $tester = $this->installCommandTester();
 
+        file_put_contents(__DIR__ . '/../../../phare.php', "<?php return [];\n");
+
         $tester->execute([]);
 
         $output = $tester->getDisplay();
+
+        unlink(__DIR__ . '/../../../phare.php');
 
         self::assertStringContainsString('configuration file already exist', $output);
     }
@@ -34,13 +38,7 @@ class InstallCommandTest extends TestCase
     {
         $tester = $this->installCommandTester();
 
-        rename(__DIR__ . '/../../../phare.php', __DIR__ . '/../../../phare.bak');
-
-        $tester->execute([
-            'preset' => 'wrong',
-        ]);
-
-        rename(__DIR__ . '/../../../phare.bak', __DIR__ . '/../../../phare.php');
+        $tester->execute(['preset' => 'wrong']);
 
         $output = $tester->getDisplay();
 
@@ -51,13 +49,11 @@ class InstallCommandTest extends TestCase
     {
         $tester = $this->installCommandTester();
 
-        rename(__DIR__ . '/../../../phare.php', __DIR__ . '/../../../phare.bak');
-
         $tester->execute([]);
 
-        rename(__DIR__ . '/../../../phare.bak', __DIR__ . '/../../../phare.php');
-
         $output = $tester->getDisplay();
+
+        unlink(__DIR__ . '/../../../phare.php');
 
         self::assertStringContainsString('select your preferred configuration preset', $output);
     }
@@ -66,17 +62,15 @@ class InstallCommandTest extends TestCase
     {
         $tester = $this->installCommandTester();
 
-        rename(__DIR__ . '/../../../phare.php', __DIR__ . '/../../../phare.bak');
-
         $tester->execute([
             'preset' => 'laravel',
         ]);
 
         $configurationFileContent = file_get_contents(__DIR__ . '/../../../phare.php');
 
-        rename(__DIR__ . '/../../../phare.bak', __DIR__ . '/../../../phare.php');
-
         $output = $tester->getDisplay();
+
+        unlink(__DIR__ . '/../../../phare.php');
 
         self::assertStringContainsString('Configuration file created', $output);
         self::assertStringContainsString('laravel', $output);
