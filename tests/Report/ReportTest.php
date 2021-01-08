@@ -74,7 +74,7 @@ class ReportTest extends TestCase
 
     public function test_it_iterate_error(): void
     {
-        $assertion = new Assertion('default', $this->stubFile('index.js'), new FileExtension(['php']));
+        $assertion = new Assertion('default', $this->stubFile('StubTest.php'), new FileExtension(['js']));
 
         $assertion->perform(false);
 

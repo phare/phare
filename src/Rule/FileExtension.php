@@ -3,6 +3,7 @@
 namespace Phare\Rule;
 
 use Phare\Exception\RuleArgumentException;
+use Phare\Exception\RuleIsNotFixable;
 use Phare\File\File;
 use Phare\Fixer\Fixer;
 
@@ -13,7 +14,7 @@ class FileExtension extends Rule
     public function __construct(array $extensions)
     {
         if (empty($extensions)) {
-            throw new RuleArgumentException('FileExtension $extensions can\'t be empty');
+            throw new RuleArgumentException('The FileExtension rule does not accept an empty array as argument.');
         }
 
         $this->extensions = $extensions;
@@ -21,7 +22,7 @@ class FileExtension extends Rule
 
     public function errorMessage(): string
     {
-        return 'Extension should be one of: ' . implode(', ', $this->extensions);
+        return 'File extension should be one of: ' . implode(', ', $this->extensions);
     }
 
     public function assert(File $file): bool
@@ -36,5 +37,6 @@ class FileExtension extends Rule
 
     public function fix(Fixer $fixer, File $file): void
     {
+        throw new RuleIsNotFixable('The FileExtension rule is not fixable.');
     }
 }

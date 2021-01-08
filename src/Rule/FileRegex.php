@@ -2,6 +2,7 @@
 
 namespace Phare\Rule;
 
+use Phare\Exception\RuleIsNotFixable;
 use Phare\File\File;
 use Phare\Fixer\Fixer;
 use Phare\Preset\Regex;
@@ -39,6 +40,10 @@ class FileRegex extends Rule
 
     public function fix(Fixer $fixer, File $file): void
     {
+        if (!$this->fixable()) {
+            throw new RuleIsNotFixable('The FileRegex rule is not fixable for the provided arguments.');
+        }
+
         $fileName = new UnicodeString($file->getFilenameWithoutExtension());
 
         // @TODO: replace with match

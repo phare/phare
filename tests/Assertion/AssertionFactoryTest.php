@@ -33,7 +33,7 @@ class AssertionFactoryTest extends TestCase
             'default',
             [
                 ScopePreset::PATHS => [
-                    'tests/stubs/sub',
+                    'tests/stubs/single',
                 ],
 
                 ScopePreset::RULES => [

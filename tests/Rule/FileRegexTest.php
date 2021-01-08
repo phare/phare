@@ -77,13 +77,8 @@ final class FileRegexTest extends TestCase
         }
     }
 
-    public function test_it_does_not_fix_file(): void
+    public function test_it_throw_exception_if_fix_called_with_wrong_arguments(): void
     {
-        $fixer = $this->mockFixer(function (MockObject $mock) {
-            $mock->expects($this->never())
-                ->method('file');
-        });
-
-        (new FileRegex('/^[a-z]*$/'))->fix($fixer, $this->stubFile('stub-test.php'));
+        $this->assertRuleFixThrowException(new FileRegex('/^[a-z]*$/'));
     }
 }

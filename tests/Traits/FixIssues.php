@@ -3,17 +3,21 @@
 namespace Phare\Tests\Traits;
 
 use Closure;
+use Phare\Exception\RuleIsNotFixable;
 use Phare\Fixer\FileFixer;
 use Phare\Fixer\Fixer;
+use Phare\Rule\Rule;
 use PHPUnit\Framework\MockObject\MockObject;
 
 trait FixIssues
 {
-    public function mockFixer(Closure $fixerClosure)
+    public function mockFixer(Closure $fixerClosure = null)
     {
         $fixerMock = $this->createMock(Fixer::class);
 
-        $fixerClosure($fixerMock);
+        if ($fixerClosure) {
+            $fixerClosure($fixerMock);
+        }
 
         return $fixerMock;
     }
@@ -29,5 +33,12 @@ trait FixIssues
                 ->method('file')
                 ->willReturn($fileFixerMock);
         });
+    }
+
+    public function assertRuleFixThrowException(Rule $rule): void
+    {
+        $this->expectException(RuleIsNotFixable::class);
+
+        $rule->fix($this->mockFixer(), $this->stubFile('StubTest.php'));
     }
 }
