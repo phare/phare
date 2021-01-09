@@ -1,6 +1,6 @@
 <?php
 
-namespace Phare\Tests\stubs;
+namespace Phare\Tests\stubs\sub;
 
 class stub
 {
