@@ -2,10 +2,10 @@
 
 # Code architecture supervisor for PHP projects
 
-[![Latest Version](https://img.shields.io/github/release/phare/phare.svg?style=flat-square)](https://github.com/phare/phare/releases)
-[![MIT Licensed](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE.md)
-![Test Status](https://img.shields.io/github/workflow/status/phare/phare/run-tests?label=tests&style=flat-square)
-[![Total Downloads](https://img.shields.io/packagist/dt/phare/phare.svg?style=flat-square)](https://packagist.org/packages/phare/phare)
+[![Status](https://img.shields.io/github/checks-status/phare/phare/main?label=Status&style=for-the-badge)](https://github.com/phare/phare/actions)
+[![Version](https://img.shields.io/packagist/v/phare/phare?label=Version&style=for-the-badge)](https://github.com/phare/phare/tags)
+[![MIT Licensed](https://img.shields.io/github/license/phare/phare?style=for-the-badge&color=brightgreen)](LICENSE.md)
+[![Total Downloads](https://img.shields.io/packagist/dt/phare/phare.svg?style=for-the-badge)](https://packagist.org/packages/phare/phare)
 
 Use Phare to supervise code architecture for one or multiple projects, during local development or continuous integration, without having to think about it.
 
