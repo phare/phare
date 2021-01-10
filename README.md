@@ -4,6 +4,7 @@
 
 [![Status](https://img.shields.io/github/checks-status/phare/phare/main?label=Status&style=for-the-badge)](https://github.com/phare/phare/actions)
 [![Version](https://img.shields.io/packagist/v/phare/phare?label=Version&style=for-the-badge)](https://github.com/phare/phare/tags)
+[![Scrutinizer code quality](https://img.shields.io/scrutinizer/quality/g/phare/phare/main?style=for-the-badge)](https://scrutinizer-ci.com/g/phare/phare/)
 [![MIT Licensed](https://img.shields.io/github/license/phare/phare?style=for-the-badge&color=brightgreen)](LICENSE.md)
 [![Total Downloads](https://img.shields.io/packagist/dt/phare/phare.svg?style=for-the-badge)](https://packagist.org/packages/phare/phare)
 
