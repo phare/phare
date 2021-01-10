@@ -11,7 +11,7 @@ class Kernel
 {
     public const VERSION = '0.0.1';
 
-    public const REQUIRED_PHP_VERSION = '7.0.0';
+    public const REQUIRED_PHP_VERSION = '8.0.0';
 
     protected static bool $bootstrapped = false;
 
