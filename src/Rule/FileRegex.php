@@ -2,6 +2,7 @@
 
 namespace Phare\Rule;
 
+use Exception;
 use Phare\Exception\RuleIsNotFixable;
 use Phare\File\File;
 use Phare\Fixer\Fixer;
@@ -46,24 +47,16 @@ class FileRegex extends Rule
 
         $fileName = new UnicodeString($file->getFilenameWithoutExtension());
 
-        // @TODO: replace with match
-        switch ($this->regex) {
-            case Regex::PASCAL_CASE:
-                $fileName = $fileName->camel()->title();
-                break;
-            case Regex::CAMEL_CASE:
-                $fileName = $fileName->camel();
-                break;
-            case Regex::SNAKE_CASE:
-                $fileName = $fileName->snake();
-                break;
-            default:
-                return;
-        }
+        $fileName = match($this->regex) {
+            Regex::PASCAL_CASE => $fileName->camel()->title(),
+            Regex::CAMEL_CASE => $fileName->camel(),
+            Regex::SNAKE_CASE => $fileName->snake(),
+        default => throw new Exception('Missing string conversion for FileRegex: ' . $this->regex),
+        };
 
-        $fixer->file()->rename(
-            $file,
-            $file->getPath() . "/$fileName." . $file->getExtension()
-        );
+            $fixer->file()->rename(
+                $file,
+                $file->getPath() . "/$fileName." . $file->getExtension()
+            );
     }
 }
