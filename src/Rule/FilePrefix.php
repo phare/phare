@@ -16,21 +16,28 @@ class FilePrefix extends Rule
 
     public function errorMessage(): string
     {
-        return 'error';
+        return "File must use prefix $this->prefix";
     }
 
     public function assert(File $file): bool
     {
-        return false;
+        return str_starts_with($file->getFilenameWithoutExtension(), $this->prefix);
     }
 
     public function fixable(): bool
     {
-        return false;
+        return true;
     }
 
     public function fix(Fixer $fixer, File $file): void
     {
-        // TODO: Implement fix() method.
+        $fileName = $file->getFilenameWithoutExtension();
+
+        $fileName = $this->prefix . $fileName;
+
+        $fixer->file()->rename(
+            $file,
+            $file->getPath() . "/$fileName." . $file->getExtension()
+        );
     }
 }

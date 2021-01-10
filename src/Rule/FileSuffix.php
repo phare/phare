@@ -16,21 +16,28 @@ class FileSuffix extends Rule
 
     public function errorMessage(): string
     {
-        return 'error';
+        return "File must use suffix $this->suffix";
     }
 
     public function assert(File $file): bool
     {
-        return false;
+        return str_ends_with($file->getFilenameWithoutExtension(), $this->suffix);
     }
 
     public function fixable(): bool
     {
-        return false;
+        return true;
     }
 
     public function fix(Fixer $fixer, File $file): void
     {
-        // TODO: Implement fix() method.
+        $fileName = $file->getFilenameWithoutExtension();
+
+        $fileName .= $this->suffix;
+
+        $fixer->file()->rename(
+            $file,
+            $file->getPath() . "/$fileName." . $file->getExtension()
+        );
     }
 }
