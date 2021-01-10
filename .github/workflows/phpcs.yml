@@ -6,9 +6,17 @@ jobs:
   phpcs:
       name: PHPCS Check
       runs-on: ubuntu-latest
+
       steps:
         - name: "Checkout"
           uses: actions/checkout@v2
+
+        - name: Setup PHP
+          uses: shivammathur/setup-php@v2
+          with:
+            php-version: 8.0
+            extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite, bcmath, soap, intl
+            coverage: none
 
         - name: PHPCS check
           uses: chekalsky/phpcs-action@v1
